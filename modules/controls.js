@@ -84,17 +84,33 @@ function Controls( options ) {
   }
 
   /*
+   * TODO: Document.
+   * @param {HTMLButtonElement} c
+   * @param {String} accessKey
+   */
+  function initButton(c) {
+    // TODO: If click event isn't already defined, and button has a class
+    // prefixed with 'button-' (e.g. 'button-ok'),
+    // call Sketchup.<className excluding button> (e.g. sketchup.ok').
+
+    // Add shortcuts depending on class:
+    //  ok: Enter
+    //  cancel: Esc
+    //  yes: Y?
+    //  no: N?
+    //  help: F1
+    //  Finnish: Enter
+    //  Enter should be focused!
+    c.onclick = function() {alert(this.innerHTML);};
+  }
+
+  /*
    * Initialize a control (button, input, link etc).
    * @param {Object} options
    * @param {Boolean} [options.accessKeys=false]
    */
   function initControl(c, options) {
-    // If click event isn't already defined, and button has a class
-    // prefixed with 'button-' (e.g. 'button-ok'),
-    // call Sketchup.<className excluding button> (e.g. sketchup.ok').
-    if (c.tagName == 'BUTTON'){
-      c.onclick = function() {alert(this.innerHTML);};
-    }
+    if (c.tagName == 'BUTTON') initButton(c);
 
     if (options.accessKeys) {
       var accessKey = c.getAttribute('data-access-key');
