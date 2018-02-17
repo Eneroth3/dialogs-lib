@@ -14,25 +14,31 @@
     </script>
   </head>
   <body>
-    <button data-access-key="b">Bar</button>
-    <button data-access-key="z">Baz</button>
-    <button data-access-key="f">Foo</button>
-    <button>Foobar</button>
-    <button data-access-key="l" onclick="alert('This is an onclick defined inside the button tag.');">Lulz</button>
-    <label>This is my label<input type="text" data-access-key="t" /></label>
-    <label for="otherText">This is my other label</label><input id="otherText" type="text" data-access-key="o" />
-    <label>This is my label<input type="text" data-access-key="m" /></label>
-    <label for="hejText">Hej!</label><input id="hejText" type="text" data-access-key="h" />
-  </body>
+    <button data-access-key="b">Bar</button><br />
+    <button data-access-key="z">Baz</button><br />
+    <button data-access-key="f">Foo</button><br />
+    <button>Foobar</button><br />
+    <button data-access-key="l" onclick="alert('This is an onclick defined inside the button tag.');">Lulz</button><br />
 
-  <p>Test:</p>
-  <ul>
-    <li>Access key is underlined on each command that has one when accessKeys is true</li>
-    <li>Access key is not underlined when accessKeys is false</li>
-    <li>Access key is not initialized when there is no data-access-key</li>
-    <li>Access keys work for custom onclick attribute</li>
-    <li>Access keys work for click events added other ways</li>
-    <li>SketchUp callbacks are added when there are no other click events defined already</li>
-    <li>SketchUp callbacks are not added when other click events are specified</li>
-  </ul>
+    <label>This is my label<input type="text" data-access-key="t" /></label><br />
+    <label for="otherText">This is my other label</label><input id="otherText" type="text" data-access-key="o" /><br />
+    <label>This is my label<input type="text" data-access-key="m" /></label><br />
+    <label for="hejText">Hej!</label><input id="hejText" type="text" data-access-key="h" /><br />
+    <label for="textarea">Textarea</label><textarea id="textarea" data-access-key="a">Text</textarea><br />
+
+    <label><input type="checkbox" name="1" data-access-key="c" />Checkbox</label><br />
+    <input type="checkbox" name="2" id="ch" data-access-key="x" /><label for="ch">Checkbox</label><br />
+    <a href="http://julia-christina-eneroth.se" data-access-key="w">My Website</a>
+
+    <p>Test:</p>
+    <ul>
+      <li>Access key is underlined on each command that has one when accessKeys is true</li>
+      <li>Access key is not underlined when accessKeys is false</li>
+      <li>Access key is not initialized when there is no data-access-key</li>
+      <li>Access keys work for custom onclick attribute</li>
+      <li>Access keys work for click events added other ways</li>
+      <li>SketchUp callbacks are added when there are no other click events defined already</li>
+      <li>SketchUp callbacks are not added when other click events are specified</li>
+    </ul>
+  </body>
 </html>

@@ -1,13 +1,12 @@
 function Controls( options ) {
-  // Should underline be shown since init or only when holding down alt?
+  // REVIEW: Should underline be shown since init or only when holding down alt?
 
   /*
    * Test if element is a controller supported by this lib.
    */
   function isControl(c) {
-    // Implement textarea and maybe link too.
     // Test on textarea, number input, date input, slider input, checkbox input, radio input.
-    return $.inArray( c.tagName, [ 'BUTTON', 'INPUT' ] ) !== -1;
+    return $.inArray( c.tagName, [ 'BUTTON', 'INPUT', 'TEXTAREA', 'A' ] ) !== -1;
   }
 
   /*
@@ -33,7 +32,7 @@ function Controls( options ) {
     // Should set focus to text inputs.
     switch(c.tagName) {
       case 'BUTTON':
-      // A ?
+      case 'A':
         c.click();
       case 'INPUT':
       case 'TEXTAREA':
@@ -44,6 +43,9 @@ function Controls( options ) {
   function initAccessKey(c, accessKey) {
     var ln = labelNode(c);
     var regExp = RegExp(accessKey, 'i');
+    // FIXME: This breaks checkboxes completely and makes them become text
+    // inputs. It appears this is due to the <u> tag being added inside the
+    // input tag.
     ln.innerHTML = ln.innerHTML.replace(regExp , '<u>$&</u>');
 
     // FIXME: access key doesn't work for inputs inside of labels.
