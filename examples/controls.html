@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Control Example</title>
+    <script src="../modules/jquery-1.12.4.js"></script>
+    <script src="../modules/controls.js"></script>
+    <script>
+      $(document).ready(function() {
+        Controls( {
+          accessKeys: true
+        } );
+      } );
+    </script>
+  </head>
+  <body>
+    <button data-access-key="b">Bar</button>
+    <button data-access-key="z">Baz</button>
+    <button data-access-key="f">Foo</button>
+    <button data-access-key="o">Foobar</button>
+    <button data-access-key="l" onclick="alert('This is an onclick defined inside the button tag.');">Lulz</button>
+  </body>
+
+  <p>Test:</p>
+  <ul>
+    <li>Access key is underlined on each command that has one when accessKeys is true</li>
+    <li>Access key is not underlined when accessKeys is false</li>
+    <li>Access key is not initialized when there is no data-access-key</li>
+    <li>Access keys work for custom onclick attribute</li>
+    <li>Access keys work for click events added other ways</li>
+    <li>SketchUp callbacks are added when there are no other click events defined already</li>
+    <li>SketchUp callbacks are not added when other click events are specified</li>
+  </ul>
+</html>
