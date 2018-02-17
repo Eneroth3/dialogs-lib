@@ -1,10 +1,15 @@
+/*
+ * Initialize all controls (button, input, textarea and link) for document.
+ * @param {Object} options
+ * @param {Boolean} [options.accessKeys=false]
+ */
 function Controls( options ) {
   // REVIEW: Should underline be shown since init or only when holding down alt?
   // TODO: Read className and assign method calls and shortcuts.
-  // TODO: Document.
 
   /*
    * Test if element is a controller supported by this lib.
+   * @param {HTMLElement} c
    */
   function isControl(c) {
     // Test on textarea, number input, date input, slider input, checkbox input, radio input.
@@ -24,8 +29,9 @@ function Controls( options ) {
   }
 
   /*
-   * Activate a control.
+   * "Activate" a control.
    * Simulate click on buttons and links, focus text inputs.
+   * @param {HTMLButtonElement|HTMLInputElement|HTMLTextAreaElement|HTMLAnchorElement} c
    */
   function activateControl(c) {
     // Test if this can trigger both events defined by onclick attribute,
@@ -42,11 +48,18 @@ function Controls( options ) {
     }
   }
 
+  /*
+   * Initialize access key for a control.
+   * Both adds the event listener and underlines the character in the label.
+   * Warns if access key couldn't be found in label.
+   * @param {HTMLButtonElement|HTMLInputElement|HTMLTextAreaElement|HTMLAnchorElement} c
+   * @param {String} accessKey
+   */
   function initAccessKey(c, accessKey) {
     var label = labelNode(c);
-    var children = label.childNodes;
-    var textNodes = $.grep(children, function(n) { return n.nodeType == Node.TEXT_NODE });
+    var textNodes = $.grep(label.childNodes, function(n) { return n.nodeType == Node.TEXT_NODE });
     if (textNodes.length > 0) {
+      // Assume there is only one next node in label.
       var textNode = textNodes[0];
       var regExp = RegExp('^([^'+accessKey+']*)('+accessKey+')(.*)', 'i');
       var matches = textNode.nodeValue.match(regExp);
@@ -58,7 +71,7 @@ function Controls( options ) {
         suffixNode = document.createTextNode(matches[3]);
         label.insertBefore(suffixNode, akNode.nextSibling);
       } else {
-        console.log('No access key \''+accessKey+'\' found in label \''+textNode.nodeValue+'\'.')
+        console.warn('No access key \''+accessKey+'\' found in label \''+textNode.nodeValue+'\'.')
       }
     }
 
@@ -70,6 +83,11 @@ function Controls( options ) {
     });
   }
 
+  /*
+   * Initialize a control (button, input, link etc).
+   * @param {Object} options
+   * @param {Boolean} [options.accessKeys=false]
+   */
   function initControl(c, options) {
     // If click event isn't already defined, and button has a class
     // prefixed with 'button-' (e.g. 'button-ok'),
@@ -84,6 +102,11 @@ function Controls( options ) {
     }
   }
 
+  /*
+   * Initialize all controls (button, input, link etc) for document.
+   * @param {Object} options
+   * @param {Boolean} [options.accessKeys=false]
+   */
   function initControls(options) {
     // elements needs to be array, not htmlColelction, as we are adding elements
     // from within a loop over it.
