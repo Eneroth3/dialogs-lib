@@ -1,5 +1,7 @@
 function Controls( options ) {
   // REVIEW: Should underline be shown since init or only when holding down alt?
+  // TODO: Read className and assign method calls and shortcuts.
+  // TODO: Document.
 
   /*
    * Test if element is a controller supported by this lib.
@@ -41,15 +43,22 @@ function Controls( options ) {
   }
 
   function initAccessKey(c, accessKey) {
-    var ln = labelNode(c);
-    var regExp = RegExp(accessKey, 'i');
-    // FIXME: This breaks checkboxes completely and makes them become text
-    // inputs. It appears this is due to the <u> tag being added inside the
-    // input tag.
-    ln.innerHTML = ln.innerHTML.replace(regExp , '<u>$&</u>');
+    var label = labelNode(c);
+    var children = label.childNodes;
+    var textNodes = $.grep(children, function(n) { return n.nodeType == Node.TEXT_NODE });
+    if (textNodes.length > 0) {
+      var textNode = textNodes[0];
+      var regExp = RegExp('^([^'+accessKey+']*)('+accessKey+')(.*)', 'i');
+      var matches = textNode.nodeValue.match(regExp);
+      console.log(matches);
+      textNode.nodeValue = matches[1];
+      var uNode = document.createElement('U');
+      uNode.appendChild(document.createTextNode(matches[2]));
+      label.insertBefore(uNode, textNode.nextSibling);
+      textNode2 = document.createTextNode(matches[3]);
+      label.insertBefore(textNode2, uNode.nextSibling);
+    }
 
-    // FIXME: access key doesn't work for inputs inside of labels.
-    // This is probably an effect of changing innerHTML.
     $(document).keydown( { accessKey: accessKey, c: c } , function(e) {
       if (!e.altKey) return;
       if (e.key != e.data.accessKey) return;
