@@ -16,15 +16,23 @@ function Controls( options ) {
     var regExp = RegExp(accessKey, 'i');
     ln.innerHTML = ln.innerHTML.replace(regExp , '<u>$&</u>');
 
-    // Let Alt+{accessKey} simulate click event on e.
-    // For input elements this should set focus.
+    $(document).keydown( { accessKey: accessKey, c: c } , function(e) {
+      if (!e.altKey) return;
+      if (e.key != e.data.accessKey) return;
+      // Test if this can trigger both events defined by onclick attribute,
+      // "normal" events (whatever those are called), and event set by this
+      // lib (sketchup.{classname - 'button'}).
+      // Should set focus to text inputs.
+      e.data.c.click();
+      e.preventDefault();
+    });
   }
 
   function initControl(c, options) {
     // If click event isn't already defined, and button has a class
     // prefixed with 'button-' (e.g. 'button-ok'),
     // call Sketchup.<className excluding button> (e.g. sketchup.ok').
-    c.onclick = function() {alert('test');};
+    c.onclick = function() {alert(this.innerHTML);};
 
     if (options.accessKeys) {
       var accessKey = c.getAttribute('data-access-key');
