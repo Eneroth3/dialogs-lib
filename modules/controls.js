@@ -1,18 +1,18 @@
 function Controls( options ) {
 
-  function isControl(e) {
+  function isControl(c) {
     // For now only support buttons.
     // Later5 support input, textarea and maybe link.
-    return e.tagName == 'BUTTON';
+    return c.tagName == 'BUTTON';
   }
 
-  function labelNode(e) {
+  function labelNode(c) {
     // On inputs, return the associated label. On button, return button itself.
-    return e;
+    return c;
   }
 
-  function initAccessKey(e, accessKey) {
-    var ln = labelNode(e);
+  function initAccessKey(c, accessKey) {
+    var ln = labelNode(c);
     var regExp = RegExp(accessKey, 'i');
     ln.innerHTML = ln.innerHTML.replace(regExp , '<u>$&</u>');
 
@@ -20,15 +20,15 @@ function Controls( options ) {
     // For input elements this should set focus.
   }
 
-  function initControl(e, options) {
+  function initControl(c, options) {
     // If click event isn't already defined, and button has a class
     // prefixed with 'button-' (e.g. 'button-ok'),
     // call Sketchup.<className excluding button> (e.g. sketchup.ok').
-    e.onclick = function() {alert('test');};
+    c.onclick = function() {alert('test');};
 
     if (options.accessKeys) {
-      var accessKey = e.getAttribute('data-access-key');
-      if (accessKey) initAccessKey(e, accessKey);
+      var accessKey = c.getAttribute('data-access-key');
+      if (accessKey) initAccessKey(c, accessKey);
     }
   }
 
@@ -37,9 +37,9 @@ function Controls( options ) {
     // from within a loop over it.
     var elements = Array.from(document.getElementsByTagName("*"));
     for (var i=0, max=elements.length; i < max; i++) {
-      e = elements[i];
-      if (!isControl(e)) continue;
-      initControl(e, options);
+      c = elements[i];
+      if (!isControl(c)) continue;
+      initControl(c, options);
     }
   }
 
