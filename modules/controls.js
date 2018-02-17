@@ -50,13 +50,16 @@ function Controls( options ) {
       var textNode = textNodes[0];
       var regExp = RegExp('^([^'+accessKey+']*)('+accessKey+')(.*)', 'i');
       var matches = textNode.nodeValue.match(regExp);
-      console.log(matches);
-      textNode.nodeValue = matches[1];
-      var uNode = document.createElement('U');
-      uNode.appendChild(document.createTextNode(matches[2]));
-      label.insertBefore(uNode, textNode.nextSibling);
-      textNode2 = document.createTextNode(matches[3]);
-      label.insertBefore(textNode2, uNode.nextSibling);
+      if (matches) {
+        textNode.nodeValue = matches[1];
+        var akNode = document.createElement('U');
+        akNode.appendChild(document.createTextNode(matches[2]));
+        label.insertBefore(akNode, textNode.nextSibling);
+        suffixNode = document.createTextNode(matches[3]);
+        label.insertBefore(suffixNode, akNode.nextSibling);
+      } else {
+        console.log('No access key \''+accessKey+'\' found in label \''+textNode.nodeValue+'\'.')
+      }
     }
 
     $(document).keydown( { accessKey: accessKey, c: c } , function(e) {
