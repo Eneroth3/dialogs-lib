@@ -5,7 +5,8 @@
  */
 function Controls( options ) {
   // REVIEW: Should underline be shown since init or only when holding down alt?
-  // TODO: Read className and assign method calls and shortcuts.
+  // TODO: Read className and assign shortcuts.
+  // TODO: Make strict.
 
   /*
    * Test if element is a controller supported by this lib.
@@ -84,24 +85,38 @@ function Controls( options ) {
   }
 
   /*
-   * TODO: Document.
+   * Initialize method call and shortcut to button.
+   * Warns if button reference a undefined SketchUp callback.
    * @param {HTMLButtonElement} c
    * @param {String} accessKey
    */
   function initButton(c) {
-    // TODO: If click event isn't already defined, and button has a class
-    // prefixed with 'button-' (e.g. 'button-ok'),
-    // call Sketchup.<className excluding button> (e.g. sketchup.ok').
+    var classes = c.className.split(' ')
+    for (var i=0, max=classes.length; i < max; i++) {
+      var className = classes[i];
+      var matches = className.match(/^dlg-(.+)$/)
+      if (!matches) continue;
+      var action = matches[1];
 
-    // Add shortcuts depending on class:
-    //  ok: Enter
-    //  cancel: Esc
-    //  yes: Y?
-    //  no: N?
-    //  help: F1
-    //  Finnish: Enter
-    //  Enter should be focused!
-    c.onclick = function() {alert(this.innerHTML);};
+      if (typeof sketchup[action] === 'function') {
+        console.log('Assign SU callback \''+action+'\' to control \''+c.innerHTML+'\'.')
+        c.onclick = sketchup[action];
+      } else {
+        console.warn('Missing SU callback \''+action+'\'.');
+      }
+
+      // TODO: Add shortcuts depending on action:
+      //  ok: Enter
+      //  cancel: Esc
+      //  yes: Y?
+      //  no: N?
+      //  help: F1
+      //  Finnish: Enter
+      //  Enter should be focused!
+
+
+      break;
+    }
   }
 
   /*

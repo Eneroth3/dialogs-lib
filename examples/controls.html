@@ -11,6 +11,11 @@
           accessKeys: true
         } );
       } );
+
+      if (typeof sketchup === 'undefined') var sketchup = [];
+      sketchup.ok = function() {
+        alert('The SketchUp ok callback was called.')
+      }
     </script>
   </head>
   <body>
@@ -27,7 +32,10 @@
 
     <label><input type="checkbox" name="1" data-access-key="c" />Checkbox</label><br />
     <input type="checkbox" name="2" id="ch" data-access-key="x" /><label for="ch">Checkbox</label><br />
-    <a href="http://julia-christina-eneroth.se" data-access-key="w">My Website</a>
+    <a href="http://julia-christina-eneroth.se" data-access-key="w">My Website</a><br />
+
+    <button class="dlg-ok">OK</button><br />
+    <button class="dlg-cancel">Cancel</button><br />
 
     <p>Test:</p>
     <ul>
