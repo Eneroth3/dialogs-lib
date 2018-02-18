@@ -6,43 +6,66 @@
     <script src="../modules/jquery-1.12.4.js"></script>
     <script src="../modules/controls.js"></script>
     <script>
+      // Initialize the controls when the document is ready.
       $(document).ready(function() {
         Controls( {
           accessKeys: true
         } );
       } );
 
+      // In an extension these callbacks are defined on the Ruby side.
       if (typeof sketchup === 'undefined') var sketchup = [];
       sketchup.ok = function() {
         alert('The SketchUp ok callback was called.')
       }
+      sketchup.foo = function() {
+        alert('The SketchUp foo callback was called.')
+      }
     </script>
   </head>
   <body>
-    <button data-access-key="b">Bar</button><br />
-    <button data-access-key="z">Baz</button><br />
-    <button data-access-key="f">Foo</button><br />
-    <button>Foobar</button><br />
-    <button data-access-key="l" onclick="alert('This is an onclick defined inside the button tag.');">Lulz</button><br />
-
+    <p>
+      SketchUp callbacks are assigned to buttons with the class "dlg-{action}"
+      where {action} is the callback name.
+    </p>
+    <p>
+      By specifying an access key (shown by underline) users can quickly trigger
+      the action by pressing Alt+{access key}. This can speed up the work flow
+      for the user, especially when they used a keyboard shortcut, rather than a
+      mouse click, to open the dialog in the first place.
+      <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/bb226831(v=vs.85).aspx">
+      Microsoft developer guidelines for access keys</a>.
+    </p>
+    <button class="dlg-foo" data-access-key="f">Foo</button>
+    <button data-access-key="b">Bar</button>
+    <p>
+      If you first want to process data on the JS side before making a callback,
+      you can define your own onclick function or event listener instead of
+      setting the class.
+    </p>
+    <button data-access-key="z" onclick="alert('This JS code is defined in the onclick attribute.');">Baz</button>
+    <p>
+      Access keys can be specified for buttons, inputs, textareas and links.
+      For inputs and textareas they focus the element rather than triggering an
+      action.
+    </p>
     <label>Text:<input type="text" data-access-key="t" /></label><br />
     <label for="otherText">Other text:</label><input id="otherText" type="text" data-access-key="o" /><br />
-    <label for="textarea">Textarea:<br /></label><textarea id="textarea" data-access-key="a">Text</textarea><br />
-    <label>Other textarea:<br /><textarea data-access-key="r">Text</textarea></label><br />
+    <label>Textarea:<br /><textarea data-access-key="a">Text</textarea></label><br />
+    <label for="otherTextarea">Other textarea:<br /></label><textarea id="otherTextarea" data-access-key="r">Text</textarea><br />
 
-    <label><input type="checkbox" name="1" data-access-key="c" />Checkbox</label><br />
-    <input type="checkbox" name="2" id="ch" data-access-key="x" /><label for="ch">Checkbox</label><br />
+    <label><input type="checkbox" name="1" data-access-key="c" />Checkbox 1</label><br />
+    <input type="checkbox" name="2" id="ch" data-access-key="x" /><label for="ch">Checkbox 2</label><br />
+    <p>
+      TODO: Remove access keys from links as underline isn't shown.
+    </p>
     <a href="http://julia-christina-eneroth.se" data-access-key="w">My Website</a><br />
+    <p>
+      No access keys should be assigned for standard commit buttons as these
+      have hard-wired shortcuts.
+    </p>
+    <button class="dlg-ok">OK</button>
+    <button class="dlg-cancel">Cancel</button>
 
-    <button class="dlg-ok">OK</button><br />
-    <button class="dlg-cancel">Cancel</button><br />
-
-    <p>Test:</p>
-    <ul>
-      <li>Access keys work for custom onclick attribute</li>
-      <li>Access keys work for click event listener</li>
-      <li>SketchUp callbacks are added when there are no other click events defined already</li>
-      <li>SketchUp callbacks are not added when other click events are specified</li>
-    </ul>
   </body>
 </html>
