@@ -45,7 +45,7 @@
     </p>
     <button data-access-key="z" onclick="alert('This JS code is defined in the onclick attribute.');">Baz</button>
     <p>
-      Access keys can be specified for buttons, inputs, textareas and links.
+      Access keys can be specified for buttons, inputs and textareas.
       For inputs and textareas they focus the element rather than triggering an
       action.
     </p>
@@ -57,12 +57,10 @@
     <label><input type="checkbox" name="1" data-access-key="c" />Checkbox 1</label><br />
     <input type="checkbox" name="2" id="ch" data-access-key="x" /><label for="ch">Checkbox 2</label><br />
     <p>
-      TODO: Remove access keys from links as underline isn't shown.
-    </p>
-    <a href="http://julia-christina-eneroth.se" data-access-key="w">My Website</a><br />
-    <p>
       No access keys should be assigned for standard commit buttons as these
       have hard-wired shortcuts.
+      TODO: List which ones?
+      TODO: Tell developer to focus default button.
     </p>
     <button class="dlg-ok">OK</button>
     <button class="dlg-cancel">Cancel</button>

@@ -14,12 +14,14 @@ function Controls( options ) {
    */
   function isControl(c) {
     // Test on textarea, number input, date input, slider input, checkbox input, radio input.
-    return $.inArray( c.tagName, [ 'BUTTON', 'INPUT', 'TEXTAREA', 'A' ] ) !== -1;
+    return $.inArray( c.tagName, [ 'BUTTON', 'INPUT', 'TEXTAREA' ] ) !== -1;
   }
 
   /*
    * Get the node being the label of a control
-   * (the node which innerHTML the access key should be underlined in).
+   * (the node where the access key should be underlined).
+   * @param {HTMLButtonElement|HTMLInputElement|HTMLTextAreaElement} c
+   * @return {HTMLElement}
    */
   function labelNode(c) {
     c = $(c)
@@ -32,16 +34,11 @@ function Controls( options ) {
   /*
    * "Activate" a control.
    * Simulate click on buttons and links, focus text inputs.
-   * @param {HTMLButtonElement|HTMLInputElement|HTMLTextAreaElement|HTMLAnchorElement} c
+   * @param {HTMLButtonElement|HTMLInputElement|HTMLTextAreaElement} c
    */
   function activateControl(c) {
-    // Test if this can trigger both events defined by onclick attribute,
-    // "normal" events (whatever those are called), and event set by this
-    // lib (sketchup.{classname - 'button'}).
-    // Should set focus to text inputs.
     switch(c.tagName) {
       case 'BUTTON':
-      case 'A':
         c.click();
       case 'INPUT':
       case 'TEXTAREA':
@@ -53,14 +50,14 @@ function Controls( options ) {
    * Initialize access key for a control.
    * Both adds the event listener and underlines the character in the label.
    * Warns if access key couldn't be found in label.
-   * @param {HTMLButtonElement|HTMLInputElement|HTMLTextAreaElement|HTMLAnchorElement} c
+   * @param {HTMLButtonElement|HTMLInputElement|HTMLTextAreaElement} c
    * @param {String} accessKey
    */
   function initAccessKey(c, accessKey) {
     var label = labelNode(c);
     var textNodes = $.grep(label.childNodes, function(n) { return n.nodeType == Node.TEXT_NODE });
     if (textNodes.length > 0) {
-      // Assume there is only one next node in label.
+      // Assume there is only one text node in label.
       var textNode = textNodes[0];
       var regExp = RegExp('^([^'+accessKey+']*)('+accessKey+')(.*)', 'i');
       var matches = textNode.nodeValue.match(regExp);
@@ -120,7 +117,7 @@ function Controls( options ) {
   }
 
   /*
-   * Initialize a control (button, input, link etc).
+   * Initialize a control (button, input etc).
    * @param {Object} options
    * @param {Boolean} [options.accessKeys=false]
    */
@@ -134,7 +131,7 @@ function Controls( options ) {
   }
 
   /*
-   * Initialize all controls (button, input, link etc) for document.
+   * Initialize all controls (button, input etc) for document.
    * @param {Object} options
    * @param {Boolean} [options.accessKeys=false]
    */
