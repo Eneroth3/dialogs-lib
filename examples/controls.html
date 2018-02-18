@@ -14,10 +14,13 @@
       // In an extension these callbacks are defined on the Ruby side.
       if (typeof sketchup === 'undefined') var sketchup = [];
       sketchup.ok = function() {
-        alert('The SketchUp ok callback was called.')
+        alert('The SketchUp ok callback was called.');
+      }
+      sketchup.cancel = function() {
+        alert('The SketchUp cancel callback was called.');
       }
       sketchup.foo = function() {
-        alert('The SketchUp foo callback was called.')
+        alert('The SketchUp foo callback was called.');
       }
     </script>
   </head>
@@ -55,14 +58,15 @@
     <label><input type="checkbox" name="1" data-access-key="c" />Checkbox 1</label><br />
     <input type="checkbox" name="2" id="ch" data-access-key="x" /><label for="ch">Checkbox 2</label><br />
     <p>
-      No access keys should be assigned for standard commit buttons as these
-      have hard-wired shortcuts.
-      TODO: List which ones?
-      TODO: Tell developer to focus default button.
-      TODO: Tell developer to avoid having textarea (multi line text input) on
-      in a dialog also having a OK action (enter)
+      TODO: Improve documentation (and fix Enter).
+      Don't assign access keys for OK, Cancel and Close.
+      Cancel and both Close uses Esc as shortcut (and can't coexist in the same dialog).
+      OK should be the default action when pressing Enter anywhere on page
+      where there isn't another Enter action (inside a textarea or when another button is focused).
+      Either implement in JS or wrap dialog in a form and make OK be the submit button.
+      OK and (in most cases) Yes should be focused on document load (by autofocus attribute).
     </p>
-    <button class="dlg-ok">OK</button>
+    <button class="dlg-ok" autofocus>OK</button>
     <button class="dlg-cancel">Cancel</button>
 
   </body>

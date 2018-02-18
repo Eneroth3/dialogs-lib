@@ -88,6 +88,8 @@ function Controls( options ) {
    * @param {HTMLButtonElement} c
    * @param {Object} options
    * @param {Boolean} [options.assignCallbacks=true]
+   * @param {Boolean} [options.assignShortcuts=true]
+   * TODO: Document what shortcuts lead to what buttons.
    */
   function initButton(c, options) {
     var classes = c.className.split(' ')
@@ -106,15 +108,25 @@ function Controls( options ) {
         }
       }
 
-      // TODO: Add shortcuts depending on action:
-      //  ok: Enter
-      //  cancel: Esc
-      //  yes: Y?
-      //  no: N?
-      //  help: F1
-      //  Finnish: Enter
-      //  Enter should be focused!
-
+      if (options.hasOwnProperty('assignShortcuts') && options['assignShortcuts'] || true) {
+        switch (action) {
+          case 'cancel':
+          case 'close':
+            $(document).keydown( {c: c } , function(e) {
+              if (e.key != 'Escape') return;
+              activateControl(e.data.c);
+              e.preventDefault();
+            });
+          // TODO: Help can be a link as well, not just a button.
+          // Add back support for links?
+          case 'help':
+            $(document).keydown( {c: c } , function(e) {
+              if (e.key != 'F1') return;
+              activateControl(e.data.c);
+              e.preventDefault();
+            });
+        }
+      }
 
       break;
     }
@@ -124,6 +136,8 @@ function Controls( options ) {
    * Initialize a control (button, input etc).
    * @param {Object} options
    * @param {Boolean} [options.accessKeys=true]
+   * @param {Boolean} [options.assignCallbacks=true]
+   * @param {Boolean} [options.assignShortcuts=true]
    */
   function initControl(c, options) {
     if (c.tagName == 'BUTTON') initButton(c, options);
@@ -139,6 +153,7 @@ function Controls( options ) {
    * @param {Object} [options={}]
    * @param {Boolean} [options.accessKeys=true]
    * @param {Boolean} [options.assignCallbacks=true]
+   * @param {Boolean} [options.assignShortcuts=true]
    */
   function initControls(options = {}) {
     // elements needs to be array, not htmlColelction, as we are adding elements
