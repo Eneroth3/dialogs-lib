@@ -86,9 +86,10 @@ function Controls( options ) {
    * Initialize method call and shortcut to button.
    * Warns if button reference a undefined SketchUp callback.
    * @param {HTMLButtonElement} c
-   * @param {String} accessKey
+   * @param {Object} options
+   * @param {Boolean} [options.assignCallbacks=true]
    */
-  function initButton(c) {
+  function initButton(c, options) {
     var classes = c.className.split(' ')
     for (var i=0, max=classes.length; i < max; i++) {
       var className = classes[i];
@@ -96,11 +97,13 @@ function Controls( options ) {
       if (!matches) continue;
       var action = matches[1];
 
-      if (typeof sketchup[action] === 'function') {
-        console.log('Assign SU callback \''+action+'\' to control \''+c.innerHTML+'\'.')
-        c.onclick = sketchup[action];
-      } else {
-        console.warn('Missing SU callback \''+action+'\'.');
+      if (options.hasOwnProperty('assignCallbacks') && options['assignCallbacks'] || true) {
+        if (typeof sketchup[action] === 'function') {
+          console.log('Assign SU callback \''+action+'\' to control \''+c.innerHTML+'\'.')
+          c.onclick = sketchup[action];
+        } else {
+          console.warn('Missing SU callback \''+action+'\'.');
+        }
       }
 
       // TODO: Add shortcuts depending on action:
@@ -120,12 +123,12 @@ function Controls( options ) {
   /*
    * Initialize a control (button, input etc).
    * @param {Object} options
-   * @param {Boolean} [options.accessKeys=false]
+   * @param {Boolean} [options.accessKeys=true]
    */
   function initControl(c, options) {
-    if (c.tagName == 'BUTTON') initButton(c);
+    if (c.tagName == 'BUTTON') initButton(c, options);
 
-    if (options.accessKeys) {
+    if (options.hasOwnProperty('accessKeys') && options['accessKeys'] || true) {
       var accessKey = c.getAttribute('data-access-key');
       if (accessKey) initAccessKey(c, accessKey);
     }
@@ -133,10 +136,11 @@ function Controls( options ) {
 
   /*
    * Initialize all controls (button, input etc) for document.
-   * @param {Object} options
-   * @param {Boolean} [options.accessKeys=false]
+   * @param {Object} [options={}]
+   * @param {Boolean} [options.accessKeys=true]
+   * @param {Boolean} [options.assignCallbacks=true]
    */
-  function initControls(options) {
+  function initControls(options = {}) {
     // elements needs to be array, not htmlColelction, as we are adding elements
     // from within a loop over it.
     var elements = Array.from(document.getElementsByTagName("*"));
