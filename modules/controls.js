@@ -4,9 +4,10 @@
  * @param {Boolean} [options.accessKeys=false]
  */
 function Controls( options ) {
+  "use strict";
+
   // REVIEW: Should underline be shown since init or only when holding down alt?
-  // TODO: Read className and assign shortcuts.
-  // TODO: Make strict.
+  // TODO: Assign shortcuts for standard actions (ok, cancel...).
 
   /*
    * Test if element is a controller supported by this lib.
@@ -66,7 +67,7 @@ function Controls( options ) {
         var akNode = document.createElement('U');
         akNode.appendChild(document.createTextNode(matches[2]));
         label.insertBefore(akNode, textNode.nextSibling);
-        suffixNode = document.createTextNode(matches[3]);
+        var suffixNode = document.createTextNode(matches[3]);
         label.insertBefore(suffixNode, akNode.nextSibling);
       } else {
         console.warn('No access key \''+accessKey+'\' found in label \''+textNode.nodeValue+'\'.')
@@ -140,7 +141,7 @@ function Controls( options ) {
     // from within a loop over it.
     var elements = Array.from(document.getElementsByTagName("*"));
     for (var i=0, max=elements.length; i < max; i++) {
-      c = elements[i];
+      var c = elements[i];
       if (!isControl(c)) continue;
       initControl(c, options);
     }
