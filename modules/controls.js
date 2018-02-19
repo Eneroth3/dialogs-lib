@@ -6,17 +6,7 @@
 function Controls( options ) {
   "use strict";
 
-  // REVIEW: Should underline be shown since init or only when holding down alt?
   // TODO: Assign shortcuts for standard actions (ok, cancel...).
-
-  /*
-   * Test if element is a controller supported by this lib.
-   * @param {HTMLElement} c
-   */
-  function isControl(c) {
-    // Test on textarea, number input, date input, slider input, checkbox input, radio input.
-    return $.inArray( c.tagName, [ 'BUTTON', 'INPUT', 'TEXTAREA' ] ) !== -1;
-  }
 
   /*
    * Get the node being the label of a control.
@@ -70,7 +60,7 @@ function Controls( options ) {
 
   /*
    * Find control's access key in its label and wrap it in stylable element.
-   * Warns if access key couldn't be found in label.
+   * Warn if access key couldn't be found in label.
    * @param {HTMLElement} control
    */
   function initAccessKey(control) {
@@ -108,6 +98,35 @@ function Controls( options ) {
       e.preventDefault();
     });
   }
+
+  /*
+   * Assign callbacks to elements with dlg-callback-* class.
+   * Warn if callback method is missing.
+   */
+  function assignCallbacks() {
+    $('[class*="dlg-callback-"]').each(function() {
+      var control = $(this).context;
+      var action = control.className.match(/dlg-callback-(\S+)/)[1];
+      var func = sketchup[action];
+      if (typeof func === 'function') {
+        console.log('Assign SU callback \''+action+'\' to control \''+control+'\'.')
+        // TODO: Test if onclick has benefits over EventListener, e.g. that
+        // onclick corresponds to interaction, including Enter and Space, and
+        // not just the mouse button being pressed. If so, comment it here.
+        // TODO: Test what values are sent in callback. Maybe wrap in anonymous
+        // function to prevent sending JS event and stuff.
+        control.onclick = func;
+      } else {
+        console.warn('Missing SU callback \''+action+'\'.');
+      }
+    });
+  }
+
+  function assignShortcuts() {
+
+  }
+
+
 
   /*
    * Initialize method call and shortcut to button.
@@ -159,49 +178,24 @@ function Controls( options ) {
     }
   }
 
-  /*
-   * Initialize a control (button, input etc).
-   * @param {Object} options
-   * @param {Boolean} [options.accessKeys=true]
-   * @param {Boolean} [options.assignCallbacks=true]
-   * @param {Boolean} [options.assignShortcuts=true]
-   */
-  function initControl(c, options) {
-    if (c.tagName == 'BUTTON') initButton(c, options);
 
-    if (options.hasOwnProperty('accessKeys') && options['accessKeys'] || true) {
-      var accessKey = c.getAttribute('data-access-key');
-      if (accessKey) initAccessKey(c, accessKey);
-    }
-  }
 
   /*
-   * Initialize all controls (button, input etc) for document.
+   * Initialize library functionality for document.
    * @param {Object} [options={}]
-   * @param {Boolean} [options.accessKeys=true]
+   * @param {Boolean} [options.initAccessKeys=true]
    * @param {Boolean} [options.assignCallbacks=true]
    * @param {Boolean} [options.assignShortcuts=true]
    */
   function initControls(options = {}) {
-
-
-    // == REMOVE THIS CODE ==
-    /*
-    // elements needs to be array, not htmlColelction, as we are adding elements
-    // from within a loop over it.
-    var elements = Array.from(document.getElementsByTagName("*"));
-    for (var i=0, max=elements.length; i < max; i++) {
-      var c = elements[i];
-      if (!isControl(c)) continue;
-      initControl(c, options);
+    if (!options.hasOwnProperty('initAccessKeys') || options['initAccessKeys']) {
+      initAccessKeys();
     }
-    */
-
-
-
-
-    if (!options.hasOwnProperty('accessKeys') || options['accessKeys']) {
-      initAccessKeys()
+    if (!options.hasOwnProperty('assignCallbacks') || options['assignCallbacks']) {
+      assignCallbacks();
+    }
+    if (!options.hasOwnProperty('assignShortcuts') || options['assignShortcuts']) {
+      assignShortcuts();
     }
   }
 

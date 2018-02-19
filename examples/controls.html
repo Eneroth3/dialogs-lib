@@ -26,8 +26,8 @@
   </head>
   <body>
     <p>
-      SketchUp callbacks are assigned to buttons with the class "dlg-{action}"
-      where {action} is the callback name.
+      SketchUp callbacks are assigned to buttons with the class
+      "dlg-callback-{action}" where {action} is the callback name.
     </p>
     <p>
       By specifying an access key (shown by underline) users can quickly trigger
@@ -37,8 +37,8 @@
       <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/bb226831(v=vs.85).aspx">
       Microsoft developer guidelines for access keys</a>.
     </p>
-    <button class="dlg-foo" data-access-key="f">Foo</button>
-    <button data-access-key="b">Bar</button>
+    <button class="dlg-callback-foo" data-access-key="f">Foo</button>
+    <button class="dlg-callback-bar" data-access-key="b">Bar</button>
     <p>
       If you first want to process data on the JS side before making a callback,
       you can define your own onclick function or event listener instead of
@@ -70,8 +70,8 @@
       Either implement in JS or wrap dialog in a form and make OK be the submit button.
       OK and (in most cases) Yes should be focused on document load (by autofocus attribute).
     </p>
-    <button class="dlg-ok" autofocus>OK</button>
-    <button class="dlg-cancel">Cancel</button>
+    <button class="dlg-callback-ok" autofocus>OK</button>
+    <button class="dlg-callback-cancel">Cancel</button>
 
   </body>
 </html>
