@@ -74,10 +74,12 @@ function Controls( options ) {
 
     // Assume there is only one text node in label.
     var textNode = textNodes[0];
+    var akNode = document.createElement('span');
+    akNode.className = 'dlg-access-key';
     if (!wrapText(
         textNode,
         RegExp('^([^'+accessKey+']*)('+accessKey+')(.*)', 'i'),
-        document.createElement('U')// TODO: Wrap is span with custom class. Style as underline on Alt press only.
+        akNode
       )
     ) console.warn('No access key \''+accessKey+'\' found in label \''+textNode.nodeValue+'\'.')
   }
@@ -88,6 +90,17 @@ function Controls( options ) {
   function initAccessKeys() {
     $('[data-access-key]').each(function() {
       initAccessKey($(this));
+    });
+
+    $(document).keydown(function(e) {
+      if (e.key != 'Alt') return;
+      $('.dlg-access-key').css('text-decoration', 'underline');
+    });
+
+    $(document).keyup(function(e) {
+      if (e.key != 'Alt') return;
+      $('.dlg-access-key').css('text-decoration', '');
+      e.preventDefault();
     });
 
     $(document).keydown(function(e) {
