@@ -69,11 +69,11 @@ html = <<-HTML
       </script>
     </head>
     <body>
-      <p>Bla bla bla.</p>
-      <p>(Enter should activate Yes and Esc should activate Cancel.)</p>
+      <p>Is this a rhetorical question?</p>
+      <p>(Enter as shortcut for Yes and Esc as shortcut for Cancel)</p>
       <button data-access-key="y" class="dlg-callback-yes">Yes</button>
       <button data-access-key="n" class="dlg-callback-no">No</button>
-      <button onclick="alert('bla bla bla');" class="dlg-callback-cancel">Cancel</button>
+      <button class="dlg-callback-cancel">Cancel</button>
     </body>
   </html>
 HTML
@@ -84,10 +84,3 @@ dialog.add_action_callback("no")     { puts "No" }
 dialog.add_action_callback("cancel") { puts "Cancel" }
 dialog.show
 ´´´´
-
-FIXME: Freezes from calling Sketchup callback.
-TODO: Stop super annoying beep in Alt keydown in HtmlDialog.
-
-
-
-

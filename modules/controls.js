@@ -103,6 +103,7 @@ function Controls( options ) {
       e.preventDefault();
     });
 
+    // TODO: Stop super annoying bing sound on Alt keydown in HtmlDialog.
     $(document).keydown(function(e) {
       if (!e.altKey) return;
       var control = $('[data-access-key="'+e.key+'"]')[0]
@@ -132,12 +133,12 @@ function Controls( options ) {
       var func = sketchup[action];
       if (typeof func === 'function') {
         console.log('Assign SU callback \''+action+'\' to control \''+control+'\'.')
-        // TODO: Test if onclick has benefits over EventListener, e.g. that
-        // onclick corresponds to interaction, including Enter and Space, and
-        // not just the mouse button being pressed. If so, comment it here.
-        // TODO: Test what values are sent in callback. Maybe wrap in anonymous
-        // function to prevent sending JS event and stuff.
-        control.onclick = func;
+        // Wrap callback in anonymous method to prevent event from being sent
+        // as parameter. This seemed to cause infinite loop as it froze the
+        // dialog.
+        // TODO: Maybe send hash of data in all named fields? If so, document
+        // how to get vars into fields in the first palce.
+        $(control).click( { func: func }, function(e) { func() });
       } else {
         console.warn('Missing SU callback \''+action+'\'.');
       }
