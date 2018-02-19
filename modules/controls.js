@@ -1,8 +1,10 @@
 /*
- * Initialize all controls (button, input, textarea and link) for document.
- * @param {Object} options
- * @param {Boolean} [options.accessKeys=false]
- */
+   * Initialize library functionality for document.
+   * @param {Object} [options={}]
+   * @param {Boolean} [options.initAccessKeys=true]
+   * @param {Boolean} [options.assignCallbacks=true]
+   * @param {Boolean} [options.assignShortcuts=true]
+   */
 function Controls( options ) {
   "use strict";
 
@@ -165,13 +167,6 @@ function Controls( options ) {
     });
   }
 
-  /*
-   * Initialize library functionality for document.
-   * @param {Object} [options={}]
-   * @param {Boolean} [options.initAccessKeys=true]
-   * @param {Boolean} [options.assignCallbacks=true]
-   * @param {Boolean} [options.assignShortcuts=true]
-   */
   function initControls(options = {}) {
     if (!options.hasOwnProperty('initAccessKeys') || options['initAccessKeys']) {
       initAccessKeys();
