@@ -19,9 +19,9 @@ function Controls( options ) {
   }
 
   /*
-   * Get the node being the label of a control
-   * (the node where the access key should be underlined).
-   * @param {HTMLButtonElement|HTMLInputElement|HTMLTextAreaElement} c
+   * Get the node being the label of a control.
+   * If there isn't a specific label element, return element itself.
+   * @param {HTMLElement} c
    * @return {HTMLElement}
    */
   function labelNode(c) {
@@ -35,15 +35,15 @@ function Controls( options ) {
   /*
    * "Activate" a control.
    * Simulate click on buttons and links, focus text inputs.
-   * @param {HTMLButtonElement|HTMLInputElement|HTMLTextAreaElement} c
+   * @param {HTMLElement} c
    */
   function activateControl(c) {
     switch(c.tagName) {
-      case 'BUTTON':
-        c.click();
       case 'INPUT':
       case 'TEXTAREA':
         c.focus();
+      default:
+        c.click();
     }
   }
 
