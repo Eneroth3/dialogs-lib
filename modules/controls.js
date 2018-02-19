@@ -48,6 +48,27 @@ function Controls( options ) {
   }
 
   /*
+   * Wraps part of text in a text node in another node.
+   * @param {textNode} textNode
+   * @param {regExp} regex - A regular expression matching exactly 3 groups,
+   *   text before wrap, text to wrap and text after wrap.
+   * @param {node} wrapNode - A newly cerated node, not yet attached to a parent.
+   * @return {Boolean} - Whether regex matched text node's content.
+   */
+  function wrapText(textNode, regex, wrapNode) {
+    var matches = textNode.nodeValue.match(regex);
+    if (!matches) return false;
+
+    textNode.nodeValue = matches[1];
+    wrapNode.appendChild(document.createTextNode(matches[2]));
+    textNode.parentNode.insertBefore(wrapNode, textNode.nextSibling);
+    var suffixNode = document.createTextNode(matches[3]);
+    textNode.parentNode.insertBefore(suffixNode, wrapNode.nextSibling);
+
+    return true;
+  }
+
+  /*
    * Initialize access key for a control.
    * Both adds the event listener and underlines the character in the label.
    * Warns if access key couldn't be found in label.
@@ -59,19 +80,12 @@ function Controls( options ) {
     var textNodes = $.grep(label.childNodes, function(n) { return n.nodeType == Node.TEXT_NODE });
     if (textNodes.length > 0) {
       // Assume there is only one text node in label.
-      var textNode = textNodes[0];
-      var regExp = RegExp('^([^'+accessKey+']*)('+accessKey+')(.*)', 'i');
-      var matches = textNode.nodeValue.match(regExp);
-      if (matches) {
-        textNode.nodeValue = matches[1];
-        var akNode = document.createElement('U');
-        akNode.appendChild(document.createTextNode(matches[2]));
-        label.insertBefore(akNode, textNode.nextSibling);
-        var suffixNode = document.createTextNode(matches[3]);
-        label.insertBefore(suffixNode, akNode.nextSibling);
-      } else {
-        console.warn('No access key \''+accessKey+'\' found in label \''+textNode.nodeValue+'\'.')
-      }
+      if (!wrapText(
+          textNodes[0],
+          RegExp('^([^'+accessKey+']*)('+accessKey+')(.*)', 'i'),
+          document.createElement('U')
+        )
+      ) console.warn('No access key \''+accessKey+'\' found in label \''+textNodes[0].nodeValue+'\'.')
     }
 
     $(document).keydown( { accessKey: accessKey, c: c } , function(e) {

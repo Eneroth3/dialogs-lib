@@ -58,6 +58,10 @@
     <label><input type="checkbox" name="1" data-access-key="c" />Checkbox 1</label><br />
     <input type="checkbox" name="2" id="ch" data-access-key="x" /><label for="ch">Checkbox 2</label><br />
     <p>
+      If a label doesn't contain the specified access key a warning is logged.
+    </p>
+    <label>Label:<input type="text" data-access-key="q" /></label><br />
+    <p>
       TODO: Improve documentation (and fix Enter).
       Don't assign access keys for OK, Cancel and Close.
       Cancel and both Close uses Esc as shortcut (and can't coexist in the same dialog).
