@@ -6,8 +6,6 @@
 function Controls( options ) {
   "use strict";
 
-  // TODO: Assign shortcuts for standard actions (ok, cancel...).
-
   /*
    * Get the node being the label of a control.
    * If there isn't a specific label element, return element itself.
@@ -32,6 +30,7 @@ function Controls( options ) {
       case 'INPUT':
       case 'TEXTAREA':
         control.focus();
+        break;
       default:
         control.click();
     }
@@ -115,6 +114,10 @@ function Controls( options ) {
         // not just the mouse button being pressed. If so, comment it here.
         // TODO: Test what values are sent in callback. Maybe wrap in anonymous
         // function to prevent sending JS event and stuff.
+        // TODO: Only assign if developer hasn't already assigned a call to this
+        // element. The classes cancel, yes, no, ok etc should preferably be
+        // added, even when the developer specifies their own custom JS call,
+        // to be used for shortcuts.
         control.onclick = func;
       } else {
         console.warn('Missing SU callback \''+action+'\'.');
@@ -122,63 +125,45 @@ function Controls( options ) {
     });
   }
 
-  function assignShortcuts() {
-
-  }
-
-
-
   /*
-   * Initialize method call and shortcut to button.
-   * Warns if button reference a undefined SketchUp callback.
-   * @param {HTMLButtonElement} c
-   * @param {Object} options
-   * @param {Boolean} [options.assignCallbacks=true]
-   * @param {Boolean} [options.assignShortcuts=true]
-   * TODO: Document what shortcuts lead to what buttons.
+   * Assign shortcuts to document.
    */
-  function initButton(c, options) {
-    var classes = c.className.split(' ')
-    for (var i=0, max=classes.length; i < max; i++) {
-      var className = classes[i];
-      var matches = className.match(/^dlg-(.+)$/)
-      if (!matches) continue;
-      var action = matches[1];
-
-      if (options.hasOwnProperty('assignCallbacks') && options['assignCallbacks'] || true) {
-        if (typeof sketchup[action] === 'function') {
-          console.log('Assign SU callback \''+action+'\' to control \''+c.innerHTML+'\'.')
-          c.onclick = sketchup[action];
-        } else {
-          console.warn('Missing SU callback \''+action+'\'.');
-        }
+  function assignShortcuts() {
+    $(document).keydown(function(e) {
+      switch (e.key) {
+        case 'Enter':
+          // For following focused elements Enter should not be used as
+          // shortcut for "submitting" the dialog.
+          var active = document.activeElement;
+          if (active.tagName == 'BUTTON') return;
+          if (active.tagName == 'A') return;
+          if (active.tagName == 'TEXTAREA') return;
+          if (active.tagName == 'INPUT' && active.type == 'checkbox') return;
+          if (active.tagName == 'INPUT' && active.type == 'radio') return;
+          // Try the following elements in the order listed.
+          var control = $('.dlg-default-action')[0];
+          control = control || $('.dlg-callback-yes')[0];
+          control = control || $('.dlg-callback-ok')[0];
+          control = control || $('.dlg-callback-close')[0];
+          if (control) activateControl(control);
+          break;
+        case 'Escape':
+          var control = $('.dlg-callback-cancel')[0];
+          control = control || $('.dlg-callback-no')[0];
+          control = control || $('.dlg-callback-ok')[0];
+          control = control || $('.dlg-callback-close')[0];
+          if (control) activateControl(control);
+          break;
+        case 'F1':
+          var control = $('.dlg-callback-help')[0];
+          if (control) activateControl(control);
+          break;
+        default:
+          return;
       }
-
-      if (options.hasOwnProperty('assignShortcuts') && options['assignShortcuts'] || true) {
-        switch (action) {
-          case 'cancel':
-          case 'close':
-            $(document).keydown( {c: c } , function(e) {
-              if (e.key != 'Escape') return;
-              activateControl(e.data.c);
-              e.preventDefault();
-            });
-          // TODO: Help can be a link as well, not just a button.
-          // Add back support for links?
-          case 'help':
-            $(document).keydown( {c: c } , function(e) {
-              if (e.key != 'F1') return;
-              activateControl(e.data.c);
-              e.preventDefault();
-            });
-        }
-      }
-
-      break;
-    }
+      e.preventDefault();
+    });
   }
-
-
 
   /*
    * Initialize library functionality for document.
@@ -197,6 +182,7 @@ function Controls( options ) {
     if (!options.hasOwnProperty('assignShortcuts') || options['assignShortcuts']) {
       assignShortcuts();
     }
+    $('.dlg-default-action').focus();
   }
 
   initControls(options);

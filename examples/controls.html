@@ -12,6 +12,7 @@
       } );
 
       // In an extension these callbacks are defined on the Ruby side.
+      // For the example we define these methods here.
       if (typeof sketchup === 'undefined') var sketchup = [];
       sketchup.ok = function() {
         alert('The SketchUp ok callback was called.');
@@ -26,16 +27,12 @@
   </head>
   <body>
     <p>
-      SketchUp callbacks are assigned to buttons with the class
-      "dlg-callback-{action}" where {action} is the callback name.
+      <strong>SketchUp callbacks</strong> are assigned to elements with the
+      class <code>dlg-callback-{action}</code> where <code>{action}</code> is
+      the callback name defined in Ruby.
     </p>
     <p>
-      By specifying an access key (shown by underline) users can quickly trigger
-      the action by pressing Alt+{access key}. This can speed up the work flow
-      for the user, especially when they used a keyboard shortcut, rather than a
-      mouse click, to open the dialog in the first place.
-      <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/bb226831(v=vs.85).aspx">
-      Microsoft developer guidelines for access keys</a>.
+      If the callback method is missing a warning is logged.
     </p>
     <button class="dlg-callback-foo" data-access-key="f">Foo</button>
     <button class="dlg-callback-bar" data-access-key="b">Bar</button>
@@ -43,18 +40,28 @@
       If you first want to process data on the JS side before making a callback,
       you can define your own onclick function or event listener instead of
       setting the class.
+      <!--
+        TODO: Rewrite paragraph:
+        Setting class is recommended anyway as it is used for shortcuts.
+        No onclick should be set by the lib if a custom onlick or event is
+        present.
+      -->
     </p>
     <button data-access-key="z" onclick="alert('This JS code is defined in the onclick attribute.');">Baz</button>
     <p>
-      Access keys can be specified for buttons, inputs and textareas.
-      For inputs and textareas they focus the element rather than triggering an
-      action.
+      An <strong>access key</strong> can be specified to the
+      <code>data-access-key</code> attribute.
+      The user can quickly trigger/focus a command by pressing Alt+{access key}.
+      This can speed up the work flow for the user, especially when they used a
+      keyboard shortcut, rather than a mouse click, to open the dialog in the
+      first place.
+      <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/bb226831(v=vs.85).aspx">
+      Microsoft developer guidelines for access keys</a>.
     </p>
     <label>Text:<input type="text" data-access-key="t" /></label><br />
     <label for="otherText">Other text:</label><input id="otherText" type="text" data-access-key="o" /><br />
     <label>Textarea:<br /><textarea data-access-key="a">Text</textarea></label><br />
     <label for="otherTextarea">Other textarea:<br /></label><textarea id="otherTextarea" data-access-key="r">Text</textarea><br />
-
     <label><input type="checkbox" name="1" data-access-key="c" />Checkbox 1</label><br />
     <input type="checkbox" name="2" id="ch" data-access-key="x" /><label for="ch">Checkbox 2</label><br />
     <p>
@@ -62,16 +69,46 @@
     </p>
     <label>Label:<input type="text" data-access-key="q" /></label><br />
     <p>
-      TODO: Improve documentation (and fix Enter).
-      Don't assign access keys for OK, Cancel and Close.
-      Cancel and both Close uses Esc as shortcut (and can't coexist in the same dialog).
-      OK should be the default action when pressing Enter anywhere on page
-      where there isn't another Enter action (inside a textarea or when another button is focused).
-      Either implement in JS or wrap dialog in a form and make OK be the submit button.
-      OK and (in most cases) Yes should be focused on document load (by autofocus attribute).
+      Some commands are automatically assigned <strong>shortcuts</strong>.
+      The following keys attempts to activate element with classes in the order
+      given below:
     </p>
-    <button class="dlg-callback-ok" autofocus>OK</button>
+    <ul>
+      <li>
+        Enter -
+        <code>dlg-default-action</code>,
+        <code>dlg-callback-yes</code>,
+        <code>dlg-callback-ok</code>,
+        <code>dlg-callback-close</code>
+      </li>
+      <li>
+        Esc -
+        <code>dlg-callback-cancel</code>,
+        <code>dlg-callback-no</code>,
+        <code>dlg-callback-ok</code>,
+        <code>dlg-callback-close</code>
+      </li>
+      <li>
+        F1 -
+        <code>dlg-callback-help</code>
+      </li>
+    </ul>
+    <p>
+      NOTE: If the element <code>dlg-callback-cancel</code> is missing, Esc
+      will try activating commands that may represent a positive response.
+      If there is a cancel button, make sure to give it the correct class, or
+      Esc may lead to an action being carried out.
+    </p>
+    <p>
+      In addition to defining shortcuts, the <code>dlg-default-action</code>
+      class makes the command <strong>focused</strong> on page load. Use this
+      class for default buttons, such as OK or Yes.
+    </p>
+    <button class="dlg-callback-ok dlg-default-action">OK</button>
     <button class="dlg-callback-cancel">Cancel</button>
-
+    <p>
+      Shortcuts works on links to, e.g. this
+      <a class="dlg-callback-help" href="javascript:alert('Help article...');">help link triggered by F1</a>.
+    </p>
   </body>
 </html>
