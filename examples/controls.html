@@ -30,24 +30,20 @@
       <strong>SketchUp callbacks</strong> are assigned to elements with the
       class <code>dlg-callback-{action}</code> where <code>{action}</code> is
       the callback name defined in Ruby.
-    </p>
-    <p>
       If the callback method is missing a warning is logged.
     </p>
     <button class="dlg-callback-foo" data-access-key="f">Foo</button>
     <button class="dlg-callback-bar" data-access-key="b">Bar</button>
     <p>
-      If you first want to process data on the JS side before making a callback,
-      you can define your own onclick function or event listener instead of
-      setting the class.
-      <!--
-        TODO: Rewrite paragraph:
-        Setting class is recommended anyway as it is used for shortcuts.
-        No onclick should be set by the lib if a custom onlick or event is
-        present.
-      -->
+      To have control over what data is passed in the callback, e.g. send form
+      data, a custom JS call can be defined in the onclick attribute.
+      When this is done, no callback will be automatically assigned based
+      on class.
+      For the ok, cancel, yes, no, close, and help controls it is recommended to
+      assign the corresponding class anyway, as it is also used to set up
+      shortcuts.
     </p>
-    <button data-access-key="z" onclick="alert('This JS code is defined in the onclick attribute.');">Baz</button>
+    <button class="dlg-callback-baz" data-access-key="z" onclick="alert('This JS code is defined in the onclick attribute.');">Baz</button>
     <p>
       An <strong>access key</strong> can be specified to the
       <code>data-access-key</code> attribute.
@@ -69,7 +65,7 @@
     </p>
     <label>Label:<input type="text" data-access-key="q" /></label><br />
     <p>
-      Some commands are automatically assigned <strong>shortcuts</strong>.
+      Some controls are automatically assigned <strong>shortcuts</strong>.
       The following keys attempts to activate element with classes in the order
       given below:
     </p>
@@ -95,9 +91,14 @@
     </ul>
     <p>
       NOTE: If the element <code>dlg-callback-cancel</code> is missing, Esc
-      will try activating commands that may represent a positive response.
+      will try activating controls that may represent a positive response.
       If there is a cancel button, make sure to give it the correct class, or
       Esc may lead to an action being carried out.
+    </p>
+    <p>
+      Don't assign access keys to controls already have shortcuts.
+      Such access keys are redundant.
+      Exception: Use access keys for Yes and No controls (Y and N).
     </p>
     <p>
       In addition to defining shortcuts, the <code>dlg-default-action</code>

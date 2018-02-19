@@ -120,6 +120,14 @@ function Controls( options ) {
   function assignCallbacks() {
     $('[class*="dlg-callback-"]').each(function() {
       var control = $(this).context;
+
+      // If an onclick attribute is already defined for the element,
+      // don't attach a new one.
+      // This is the case when the developer wants to call their custom
+      // callback, that e.g. sends some form data too.
+      // REVIEW: Should perhaps also detect event listeners here?
+      if (control.getAttribute('onclick')) return;
+
       var action = control.className.match(/dlg-callback-(\S+)/)[1];
       var func = sketchup[action];
       if (typeof func === 'function') {
@@ -129,10 +137,6 @@ function Controls( options ) {
         // not just the mouse button being pressed. If so, comment it here.
         // TODO: Test what values are sent in callback. Maybe wrap in anonymous
         // function to prevent sending JS event and stuff.
-        // TODO: Only assign if developer hasn't already assigned a call to this
-        // element. The classes cancel, yes, no, ok etc should preferably be
-        // added, even when the developer specifies their own custom JS call,
-        // to be used for shortcuts.
         control.onclick = func;
       } else {
         console.warn('Missing SU callback \''+action+'\'.');
