@@ -21,11 +21,11 @@ function Controls( options ) {
   /*
    * Get the node being the label of a control.
    * If there isn't a specific label element, return element itself.
-   * @param {HTMLElement} c
+   * @param {HTMLElement} control
    * @return {HTMLElement}
    */
-  function labelNode(c) {
-    c = $(c)
+  function labelNode(control) {
+    var c = $(control)
     var label = $("label[for='"+c.attr('id')+"']");
     if (label.length == 0) label = c.closest('label');
 
@@ -34,21 +34,21 @@ function Controls( options ) {
 
   /*
    * "Activate" a control.
-   * Simulate click on buttons and links, focus text inputs.
-   * @param {HTMLElement} c
+   * Focus text elements, simulate click on other elements.
+   * @param {HTMLElement} control
    */
-  function activateControl(c) {
-    switch(c.tagName) {
+  function activateControl(control) {
+    switch(control.tagName) {
       case 'INPUT':
       case 'TEXTAREA':
-        c.focus();
+        control.focus();
       default:
-        c.click();
+        control.click();
     }
   }
 
   /*
-   * Wraps part of text in a text node in another node.
+   * Find substring of text node and wrap in another node.
    * @param {textNode} textNode
    * @param {regExp} regex - A regular expression matching exactly 3 groups,
    *   text before wrap, text to wrap and text after wrap.
@@ -69,29 +69,42 @@ function Controls( options ) {
   }
 
   /*
-   * Initialize access key for a control.
-   * Both adds the event listener and underlines the character in the label.
+   * Find control's access key in its label and wrap it in stylable element.
    * Warns if access key couldn't be found in label.
-   * @param {HTMLButtonElement|HTMLInputElement|HTMLTextAreaElement} c
-   * @param {String} accessKey
+   * @param {HTMLElement} control
    */
-  function initAccessKey(c, accessKey) {
-    var label = labelNode(c);
-    var textNodes = $.grep(label.childNodes, function(n) { return n.nodeType == Node.TEXT_NODE });
-    if (textNodes.length > 0) {
-      // Assume there is only one text node in label.
-      if (!wrapText(
-          textNodes[0],
-          RegExp('^([^'+accessKey+']*)('+accessKey+')(.*)', 'i'),
-          document.createElement('U')
-        )
-      ) console.warn('No access key \''+accessKey+'\' found in label \''+textNodes[0].nodeValue+'\'.')
-    }
+  function initAccessKey(control) {
+    var accessKey = control.attr('data-access-key');
+    var label = labelNode(control);
+    var textNodes = $.grep(label.childNodes, function(n) {
+      return n.nodeType == Node.TEXT_NODE
+    });
+    if (textNodes.length < 1) return;
 
-    $(document).keydown( { accessKey: accessKey, c: c } , function(e) {
+    // Assume there is only one text node in label.
+    var textNode = textNodes[0];
+    if (!wrapText(
+        textNode,
+        RegExp('^([^'+accessKey+']*)('+accessKey+')(.*)', 'i'),
+        document.createElement('U')// TODO: Wrap is span with custom class. Style as underline on Alt press only.
+      )
+    ) console.warn('No access key \''+accessKey+'\' found in label \''+textNode.nodeValue+'\'.')
+  }
+
+  /*
+   * Initialize all access keys in document.
+   */
+  function initAccessKeys() {
+    $('[data-access-key]').each(function() {
+      initAccessKey($(this));
+    });
+
+    $(document).keydown(function(e) {
       if (!e.altKey) return;
-      if (e.key != e.data.accessKey) return;
-      activateControl(e.data.c);
+      var control = $('[data-access-key="'+e.key+'"]')[0]
+      if (!control) return;
+
+      activateControl(control);
       e.preventDefault();
     });
   }
@@ -170,6 +183,10 @@ function Controls( options ) {
    * @param {Boolean} [options.assignShortcuts=true]
    */
   function initControls(options = {}) {
+
+
+    // == REMOVE THIS CODE ==
+    /*
     // elements needs to be array, not htmlColelction, as we are adding elements
     // from within a loop over it.
     var elements = Array.from(document.getElementsByTagName("*"));
@@ -177,6 +194,14 @@ function Controls( options ) {
       var c = elements[i];
       if (!isControl(c)) continue;
       initControl(c, options);
+    }
+    */
+
+
+
+
+    if (!options.hasOwnProperty('accessKeys') || options['accessKeys']) {
+      initAccessKeys()
     }
   }
 
