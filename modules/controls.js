@@ -1,10 +1,10 @@
 /*
-   * Initialize library functionality for document.
-   * @param {Object} [options={}]
-   * @param {Boolean} [options.initAccessKeys=true]
-   * @param {Boolean} [options.assignCallbacks=true]
-   * @param {Boolean} [options.assignShortcuts=true]
-   */
+ * Initialize library functionality for document.
+ * @param {Object} [options={}]
+ * @param {Boolean} [options.initAccessKeys=true]
+ * @param {Boolean} [options.assignCallbacks=true]
+ * @param {Boolean} [options.assignShortcuts=true]
+ */
 function Controls( options ) {
   "use strict";
 
