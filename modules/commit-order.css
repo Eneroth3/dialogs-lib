@@ -1,0 +1,7 @@
+.dlg-reverse-on-mac, .dlg-do-not-reverse-on-mac {
+  display: inline-flex;
+  flex-direction: row;
+}
+body.dlg-mac .dlg-reverse-on-mac {
+  flex-direction: row-reverse;
+}

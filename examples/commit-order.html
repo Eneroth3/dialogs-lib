@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Commit Order Example</title>
+    <!-- Load the required javascript and CSS files. -->
+    <link rel="stylesheet" type="text/css" href="../modules/commit-order.css">
+    <script src="../modules/commit-order.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function(event) {
+        commitOrder();
+      });
+    </script>
+  </head>
+  <body>
+    <p>
+      The commit-order module allows you to order elements differently on
+      different plattforms.
+    </p>
+    <p>
+      Windows and Mac have different conventions for the order of dialog commit buttons.
+      Windows has the default/affirmative button furthest to the left
+      (first in Western reading order)
+      while Mac has it to the right (closest to where you stop scanning the dialog).
+    </p>
+    <blockquote>
+      Present the commit buttons in the following order:
+      <ol>
+        <li>OK/[Do it]/Yes</li>
+        <li>[Don't do it]/No</li>
+        <li>Cancel</li>
+        <li>Apply (if present)</li>
+        <li>Help (if present)</li>
+      </ol>
+      <footer>—
+        <cite><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/dn742499(v=vs.85).aspx">Microsoft Dev Center</a></cite>
+      </footer>
+    </blockquote>
+    <blockquote>
+      An action button, which initiates the dialog’s primary action, should be farthest to the right. A Cancel button should be to the immediate left of the action button. If a third dismissal button exists, it should be to the left of the Cancel button. A Help button should be farthest to the left
+      <footer>—
+        <cite><a href="https://developer.apple.com/macos/human-interface-guidelines/windows-and-views/dialogs/">Apple human Interface Guidelines</a></cite>
+      </footer>
+    </blockquote>
+    <p>
+      In the HTML source the elements are defined in the Windows order (because
+      I personally use Windows, lol). To reverse elements on Mac only, wrap them
+      in an element with the class <code>dlg-reverse-on-mac</code>.
+    </p>
+    <span class="dlg-reverse-on-mac">
+      <button>Ok</button>
+      <button>Cancel</button>
+    </span>
+    <p>
+      All elements cannot in all cases on Mac simply be reversed though.
+      For instance, both Windows and back have buttons to the Previous step to
+      the left, and buttons to the Next step to the right.
+      Reversing all would lead to faulty Next and Previous buttons.
+      reversing none would lead to the cancel button being in the wrong position.
+    </p>
+    <p>
+      To mix buttons that should be reversed and buttons that should not because
+      reversed, use a nested <code>dlg-do-not-reverse-on-mac</code>element
+      within the <code>dlg-reverse-on-mac</code> element.
+    </p>
+    <span class="dlg-reverse-on-mac">
+      <span class="dlg-do-not-reverse-on-mac">
+        <button>&#x2190; Previous</button>
+        <button>Next &#x2192;</button>
+      </span>
+      <button>Cancel</button>
+    </span>
+  </body>
+</html>
