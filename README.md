@@ -1,3 +1,5 @@
+# Dialogs
+
 Dialogs is a lightweight, easy to use library for SketchUp HtmlDialog
 dialogs. It is designed purely using web technologies, no Ruby, to allow you to
 easily implement it in dialogs in existing projects, without having to replace
@@ -7,12 +9,26 @@ versatile dialogs with highly specialized content and any third party lib of
 your choice. Dialogs can be thought of as a utility library rather than a full
 framework.
 
-Dialogs can:
-- automatically add callback actions to controls based on their class
-- assign shortcut keys to some standard controls
-- implement access keys to controls
+Dialogs consists of 2 separate modules that can be used both together or alone.
+
+## Controls
+
+The controls module helps with dialog functionality.
+
+Features:
+- Automatically add callback actions to controls based on their class
+- Assign shortcut keys to some standard controls
+- Implement access keys to controls
 
 For some sort of documentation, see the [somewhat complete example](examples/controls.html).
+
+## Commit Button Order
+
+The commit button order module helps ordering commit buttons consistent to the OS.
+
+For some sort of documentation, see the [somewhat complete example](examples/commit-order.html).
+
+## General Examples
 
 ````ruby
 # Simple message box.
@@ -23,12 +39,15 @@ html = <<-HTML
     <head>
       <meta charset="UTF-8">
       <base href="#{base_dir}/" />
-      <script src="controls.js"></script>
       <script src="jquery-1.12.4.js"></script>
+      <script src="controls.js"></script>
+      <link rel="stylesheet" type="text/css" href="commit-order.css">
+      <script src="commit-order.js"></script>
       <script>
         // Initialize the controls when the document is ready.
         $(document).ready(function() {
           Controls();
+          commitOrder();
         } );
       </script>
     </head>
@@ -59,21 +78,26 @@ html = <<-HTML
     <head>
       <meta charset="UTF-8">
       <base href="#{base_dir}/" />
-      <script src="controls.js"></script>
       <script src="jquery-1.12.4.js"></script>
+      <script src="controls.js"></script>
+      <link rel="stylesheet" type="text/css" href="commit-order.css">
+      <script src="commit-order.js"></script>
       <script>
         // Initialize the controls when the document is ready.
         $(document).ready(function() {
           Controls();
+          commitOrder();
         } );
       </script>
     </head>
     <body>
       <p>Is this a rhetorical question?</p>
       <p>(Enter is shortcut for Yes, Esc is shortcut for Cancel)</p>
-      <button data-access-key="y" class="dlg-callback-yes">Yes</button>
-      <button data-access-key="n" class="dlg-callback-no">No</button>
-      <button class="dlg-callback-cancel">Cancel</button>
+      <span class="dlg-reverse-on-mac">
+        <button data-access-key="y" class="dlg-callback-yes">Yes</button>
+        <button data-access-key="n" class="dlg-callback-no">No</button>
+        <button class="dlg-callback-cancel">Cancel</button>
+      </span>
     </body>
   </html>
 HTML
