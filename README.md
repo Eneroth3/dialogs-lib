@@ -1,5 +1,7 @@
 # Dialogs
 
+(TODO: Add screenshots here, preferably showing dialog both on Mac and PC.)
+
 Dialogs is a lightweight, easy to use library for SketchUp HtmlDialog
 dialogs. It is designed purely using web technologies, no Ruby, to allow you to
 easily implement it in dialogs in existing projects, without having to replace
@@ -10,6 +12,9 @@ your choice. Dialogs can be thought of as a utility library rather than a full
 framework.
 
 Dialogs consists of 2 separate modules that can be used both together or alone.
+If you like the visual appearance but think my Javascript skills are rubbish,
+you can use the style module only. If you like the javascript behavior, but want
+styling according to your own brand, you can leave out the styling module.
 
 ## Controls
 
@@ -43,6 +48,7 @@ html = <<-HTML
       <script src="controls.js"></script>
       <link rel="stylesheet" type="text/css" href="commit-order.css">
       <script src="commit-order.js"></script>
+      <link rel="stylesheet" type="text/css" href="style.css">
       <script>
         // Initialize the controls when the document is ready.
         $(document).ready(function() {
@@ -54,14 +60,15 @@ html = <<-HTML
     <body>
       <p>Eneroth is really cool and geeky!</p>
       <p>(Both Enter and Esc are shortcuts for OK)</p>
-      <button class="dlg-callback-ok">OK</button>
+      <button class="dlg-callback-ok dlg-button dlg-button-call-to-action">OK</button>
     </body>
   </html>
 HTML
 dialog = UI::HtmlDialog.new(
   dialog_title: "Dialog Dialog",
-  width: 300,
-  height: 180
+  width: 500,
+  height: 300,
+  resizable: false
 )
 dialog.center
 dialog.set_html(html)
@@ -82,6 +89,7 @@ html = <<-HTML
       <script src="controls.js"></script>
       <link rel="stylesheet" type="text/css" href="commit-order.css">
       <script src="commit-order.js"></script>
+      <link rel="stylesheet" type="text/css" href="style.css">
       <script>
         // Initialize the controls when the document is ready.
         $(document).ready(function() {
@@ -94,17 +102,18 @@ html = <<-HTML
       <p>Is this a rhetorical question?</p>
       <p>(Enter is shortcut for Yes, Esc is shortcut for Cancel)</p>
       <span class="dlg-reverse-on-mac">
-        <button data-access-key="y" class="dlg-callback-yes">Yes</button>
-        <button data-access-key="n" class="dlg-callback-no">No</button>
-        <button class="dlg-callback-cancel">Cancel</button>
+        <button data-access-key="y" class="dlg-callback-yes dlg-button dlg-button-call-to-action">Yes</button>
+        <button data-access-key="n" class="dlg-callback-no dlg-button">No</button>
+        <button class="dlg-callback-cancel dlg-button">Cancel</button>
       </span>
     </body>
   </html>
 HTML
 dialog = UI::HtmlDialog.new(
   dialog_title: "Dialog Dialog",
-  width: 300,
-  height: 180
+  width: 500,
+  height: 300,
+  resizable: false
 )
 dialog.center
 dialog.set_html(html)

@@ -1,0 +1,42 @@
+/* TODO: Set fonts face and text sizes. */
+/* Add flexbox stuff for dialog layout */
+
+body {
+  background: #F9F9FB;
+}
+.dlg-button {
+  display: inline-block;
+  width: 135px;
+  height: 33px;
+  margin: 5px;
+  cursor: default;
+  /* Button look gives enough affordance that object is a button.
+    https://msdn.microsoft.com/en-us/library/windows/desktop/dn742466(v=vs.85).aspx
+    In desktop environments [hand] pointer specifically means link, opened in
+    browser, not interactive element, at least on PC. */
+  color: #333;
+  background: white;
+  border: 1px solid #CCC;
+  border-radius: 2px;
+
+}
+.dlg-button:hover {
+  background: #E6E6E6;
+  border-color: #ADADAD;
+}
+.dlg-button:focus {
+  box-shadow: 0 0 3px #005595; /*Trimble blue*/
+  outline: 0 !important;
+}
+button::-moz-focus-inner {
+  border-style: none;
+}
+.dlg-button-call-to-action {
+  background: #E72B2D;
+  color: white;
+  border-color: #DF191B;
+}
+.dlg-button-call-to-action:hover {
+  background: #C81719;
+  border-color: #A81315;
+}
