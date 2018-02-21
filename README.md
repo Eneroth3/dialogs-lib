@@ -1,6 +1,6 @@
 # Dialogs
 
-(TODO: Add screenshots here, preferably showing dialog both on Mac and PC.)
+![Message Box](messagebox.png) ![Yes/No/Cancel](yesnocancel.png)
 
 Dialogs is a lightweight, easy to use library for SketchUp HtmlDialog
 dialogs. It is designed purely using web technologies, no Ruby, to allow you to
