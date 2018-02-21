@@ -61,8 +61,8 @@ html = <<-HTML
       <script>
         // Initialize the controls when the document is ready.
         $(document).ready(function() {
-          Controls();
-          commitOrder();
+          dlgInitControls();
+          dlgSetCommitOrder();
         } );
       </script>
     </head>
@@ -108,8 +108,8 @@ html = <<-HTML
       <script>
         // Initialize the controls when the document is ready.
         $(document).ready(function() {
-          Controls();
-          commitOrder();
+          dlgInitControls();
+          dlgSetCommitOrder();
         } );
       </script>
     </head>

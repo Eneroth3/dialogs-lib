@@ -1,11 +1,12 @@
 /*
  * Initialize library functionality for document.
+ * Call this function once the DOM is loaded.
  * @param {Object} [options={}]
  * @param {Boolean} [options.initAccessKeys=true]
  * @param {Boolean} [options.assignCallbacks=true]
  * @param {Boolean} [options.assignShortcuts=true]
  */
-function Controls( options ) {
+function dlgInitControls( options ) {
   "use strict";
 
   /*
