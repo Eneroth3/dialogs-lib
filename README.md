@@ -2,25 +2,23 @@
 
 ![Message Box](messagebox.png) ![Yes/No/Cancel](yesnocancel.png)
 
-Dialogs is a lightweight, easy to use library for SketchUp HtmlDialog
+Dialogs is a lightweight, easy to use UX library for SketchUp HtmlDialog
 dialogs. It is designed purely using web technologies, no Ruby, to allow you to
-easily implement it in dialogs in existing projects, without having to replace
-Ruby HtmlDialogs with some custom dialog object. Working directly in web
-technologies, rather than through a Ruby wrapper, also allows you to make more
-versatile dialogs with highly specialized content and any third party lib of
-your choice. Dialogs can be thought of as a utility library rather than a full
-framework.
+easily implement it existing dialogs. You don't need to use some custom Ruby
+dialog object, or rethink your back end code! Working directly in web
+technologies, rather than through a Ruby wrapper, also allows for more versatile
+dialogs, as you are not limited by the capabilities of the wrapper.
+Dialogs can be thought of as a utility library, rather than a framework.
 
-Dialogs consists of 2 separate modules that can be used both together or alone.
+Dialogs consists of 3 separate modules that can be used either together or on their own.
 If you like the visual appearance but think my Javascript skills are rubbish,
-you can use the style module only. If you like the javascript behavior, but want
+you can use only the style module. If you like the javascript behavior, but want
 styling according to your own brand, you can leave out the styling module.
 
 ## Controls
 
-The controls module helps with dialog functionality.
-
-Features:
+The controls module helps with the feel of the dialog by adding some typical
+dialog functionality, and automates simple callbacks:
 - Automatically add callback actions to controls based on their class
 - Assign shortcut keys to some standard controls
 - Implement access keys to controls
@@ -33,7 +31,18 @@ The commit button order module helps ordering commit buttons consistent to the O
 
 For some sort of documentation, see the [somewhat complete example](examples/commit-order.html).
 
+## Style
+
+The style module helps making the dialog appearance match that of SketchUp.
+
+For some sort of documentation, see the [somewhat complete example](examples/style.html).
+
 ## General Examples
+
+These examples shows all modules being used at once.
+
+To run these examples, download the source code and select the modules directory
+when asked for it.
 
 ````ruby
 # Simple message box.
