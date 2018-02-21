@@ -58,9 +58,15 @@ html = <<-HTML
       </script>
     </head>
     <body>
-      <p>Eneroth is really cool and geeky!</p>
-      <p>(Both Enter and Esc are shortcuts for OK)</p>
-      <button class="dlg-callback-ok dlg-button dlg-button-call-to-action">OK</button>
+      <div class="dlg-content-area">
+        <p>
+          This is a dialog window.
+        </p>
+        <p>(Both Enter and Esc are shortcuts for OK)</p>
+      </div>
+      <div class="dlg-commit-buttons">
+        <button class="dlg-default-action dlg-callback-ok dlg-button">OK</button>
+      </div>
     </body>
   </html>
 HTML
@@ -99,13 +105,18 @@ html = <<-HTML
       </script>
     </head>
     <body>
-      <p>Is this a rhetorical question?</p>
-      <p>(Enter is shortcut for Yes, Esc is shortcut for Cancel)</p>
-      <span class="dlg-reverse-on-mac">
-        <button data-access-key="y" class="dlg-callback-yes dlg-button dlg-button-call-to-action">Yes</button>
-        <button data-access-key="n" class="dlg-callback-no dlg-button">No</button>
-        <button class="dlg-callback-cancel dlg-button">Cancel</button>
-      </span>
+      <div class="dlg-content-area">
+        <p>Is this a rhetorical question?</p>
+        <p>(Enter is shortcut for Yes, Esc is shortcut for Cancel)</p>
+      </div>
+      <div class="dlg-commit-buttons">
+        <span class="dlg-reverse-on-mac">
+          <button data-access-key="y" class="dlg-default-action dlg-callback-yes
+          dlg-button dlg-button-call-to-action">Yes</button>
+          <button data-access-key="n" class="dlg-callback-no dlg-button">No</button>
+          <button class="dlg-callback-cancel dlg-button">Cancel</button>
+        </span>
+      </div>
     </body>
   </html>
 HTML

@@ -1,17 +1,35 @@
-/* TODO: Add flexbox stuff for dialog layout */
-
 @font-face {
   font-family: "Open Sans";
   src: url(OpenSans-Regular.ttf);
 }
-
 body {
   font-family: "Open Sans", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857;
   /* color: #727272; EM color */
-  color: #444; /* Increase contrast to ease reading */
+  color: #444; /* Increase contrast compared to EM to ease reading */
   background: #F9F9FB;
+
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+.dlg-content-area {
+  flex: 1;
+  overflow: auto;
+  padding: 10px;
+  border-bottom: 1px solid #E2E1E1;
+}
+.dlg-commit-buttons {
+  flex: 0;
+  text-align: right;
+  padding: 10px;
+}
+::selection {
+  background: #005595; /*Trimble blue*/
+  color: white;
 }
 .dlg-button {
   display: inline-block;
