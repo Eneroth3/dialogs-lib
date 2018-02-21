@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Style Example</title>
+    <!-- Load the required CSS file. -->
+    <link rel="stylesheet" type="text/css" href="../modules/style.css">
+  </head>
+  <body>
+    <div class="dlg-content-area">
+      <p>
+        The dialog style module is based on the Extension Manager look and feel,
+        with some adjustments.
+        This module is intended to unify the user experience between SketchUp
+        extension, and between extensions and native features.
+      </p>
+      <p>
+        Style elements as <strong>buttons</strong> by adding the class
+        <code>dlg-button</code>.
+      </p>
+      <button class="dlg-button" onclick="alert('Clicked Foo');">Foo</button>
+      <button class="dlg-button" onclick="alert('Clicked Bar');">Bar</button>
+      <p>
+        Add the class <code>dlg-button-call-to-action</code> for a call to action
+        button, styled in SketchUp red.
+        Typically there is only one call to action button at time in a dialog.
+      </p>
+      <p>
+        When using the controls module, the call to action button typically also
+        is the default action, denoted by the <code>dlg-default-action</code>
+        class.
+      </p>
+      <button class="dlg-button dlg-button-call-to-action" onclick="alert('Clicked Foo');">Foo</button>
+      <button class="dlg-button" onclick="alert('Clicked Bar');">Bar</button>
+      <p>
+        The focused button is outlined in Trimble blue
+        (YAY, Trimble also got to have its color in this otherwise very SketchUppy color scheme).
+        This allows the user to see use the tab key to cycle through the commands.
+        This is functionality that is unfortunately too often omitted when design
+        only means appearance.
+      </p>
+      <button class="dlg-button dlg-button-call-to-action" autofocus onclick="alert('Clicked Foo');">Foo</button>
+      <button class="dlg-button" onclick="alert('Clicked Bar');">Bar</button>
+      <p>
+        For <strong>layout</strong>, wrap the commit buttons in an element with
+        the class <code>dlg-commit-buttons</code> and the rest of the dialog in an
+        element with the class <code>dlg-content-area</code>.
+      </p>
+      <p>
+        This places the commit buttons at the bottom, and adds a scrollbar to the
+        content if it doesn't fit above te fold.
+      </p>
+    </div>
+    <div class="dlg-commit-buttons">
+      <button class="dlg-button dlg-button-call-to-action" onclick="alert('Clicked Foo');">Foo</button>
+      <button class="dlg-button" onclick="alert('Clicked Bar');">Bar</button>
+    </div>
+  </body>
+</html>

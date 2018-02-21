@@ -34,6 +34,9 @@ function Controls( options ) {
         control.focus();
         break;
       default:
+        // When element is triggered using shortcut/access key it should remain
+        // focused afterwards.
+        control.focus();
         control.click();
     }
   }
