@@ -1,11 +1,21 @@
-/* TODO: Set fonts face and text sizes. */
-/* Add flexbox stuff for dialog layout */
+/* TODO: Add flexbox stuff for dialog layout */
+
+@font-face {
+  font-family: "Open Sans";
+  src: url(OpenSans-Regular.ttf);
+}
 
 body {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.42857;
+  /* color: #727272; EM color */
+  color: #444; /* Increase contrast to ease reading */
   background: #F9F9FB;
 }
 .dlg-button {
   display: inline-block;
+  box-sizing: border-box;
   width: 135px;
   height: 33px;
   margin: 5px;
@@ -18,6 +28,9 @@ body {
   background: white;
   border: 1px solid #CCC;
   border-radius: 2px;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
 
 }
 .dlg-button:hover {
