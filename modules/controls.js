@@ -164,11 +164,10 @@ function dlgInitControls( options ) {
           if (active.tagName == 'TEXTAREA') return;
           if (active.tagName == 'INPUT' && active.type == 'checkbox') return;
           if (active.tagName == 'INPUT' && active.type == 'radio') return;
-          // Try the following elements in the order listed.
+          // Enter is only be used as shortcut for the control that is
+          // explicitly the default action. It's up to the extensiond eveloper
+          // to add this to Ok, Yes and Close for each individual dialog.
           var control = $('.dlg-default-action')[0];
-          control = control || $('.dlg-callback-yes')[0];
-          control = control || $('.dlg-callback-ok')[0];
-          control = control || $('.dlg-callback-close')[0];
           if (control) activateControl(control);
           break;
         case 'Escape':
