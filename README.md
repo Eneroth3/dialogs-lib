@@ -74,7 +74,7 @@ html = <<-HTML
         <p>(Both Enter and Esc are shortcuts for OK)</p>
       </div>
       <div class="dlg-commit-buttons">
-        <button class="dlg-default-action dlg-callback-ok dlg-button">OK</button>
+        <button class="dlg-default-action dlg-callback-ok>OK</button>
       </div>
     </body>
   </html>
@@ -121,9 +121,9 @@ html = <<-HTML
       <div class="dlg-commit-buttons">
         <span class="dlg-reverse-on-mac">
           <button data-access-key="y" class="dlg-default-action dlg-callback-yes
-          dlg-button dlg-button-call-to-action">Yes</button>
-          <button data-access-key="n" class="dlg-callback-no dlg-button">No</button>
-          <button class="dlg-callback-cancel dlg-button">Cancel</button>
+          dlg-button-call-to-action">Yes</button>
+          <button data-access-key="n" class="dlg-callback-no">No</button>
+          <button class="dlg-callback-cancel">Cancel</button>
         </span>
       </div>
     </body>

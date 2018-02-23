@@ -31,12 +31,14 @@ body {
   background: #005595; /*Trimble blue*/
   color: white;
 }
+button,
 .dlg-button {
   display: inline-block;
   box-sizing: border-box;
   width: 135px;
   height: 33px;
   margin: 5px;
+  text-align: center;
   cursor: default;
   /* Button look gives enough affordance that object is a button.
     https://msdn.microsoft.com/en-us/library/windows/desktop/dn742466(v=vs.85).aspx
@@ -51,10 +53,12 @@ body {
   line-height: inherit;
 
 }
+button:hover,
 .dlg-button:hover {
   background: #E6E6E6;
   border-color: #ADADAD;
 }
+button:focus,
 .dlg-button:focus {
   box-shadow: 0 0 3px #005595; /*Trimble blue*/
   outline: 0 !important;
