@@ -39,11 +39,7 @@ button,
   height: 33px;
   margin: 5px;
   text-align: center;
-  cursor: default;
-  /* Button look gives enough affordance that object is a button.
-    https://msdn.microsoft.com/en-us/library/windows/desktop/dn742466(v=vs.85).aspx
-    In desktop environments [hand] pointer specifically means link, opened in
-    browser, not interactive element, at least on PC. */
+  cursor: pointer;
   color: #333;
   background: white;
   border: 1px solid #CCC;
