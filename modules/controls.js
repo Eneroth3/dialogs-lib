@@ -77,16 +77,23 @@ function dlgInitControls( options ) {
     });
     if (textNodes.length < 1) return;
 
-    // Assume there is only one text node in label.
-    var textNode = textNodes[0];
-    var akNode = document.createElement('span');
-    akNode.className = 'dlg-access-key';
-    if (!wrapText(
-        textNode,
-        RegExp('^([^'+accessKey+']*)('+accessKey+')(.*)', 'i'),
-        akNode
-      )
-    ) console.warn('No access key \''+accessKey+'\' found in label \''+textNode.nodeValue+'\'.')
+    var match = false;
+    for ( var i=0, l=textNodes.length; i < l; i++ ) {
+      var textNode = textNodes[i];
+      var akNode = document.createElement('span');
+      akNode.className = 'dlg-access-key';
+      if (wrapText(
+          textNode,
+          RegExp('^([^'+accessKey+']*)('+accessKey+')(.*)', 'i'),
+          akNode
+        )
+      ) {
+        match = true
+        break;
+      }
+    }
+    if (!match)
+      console.warn('No access key \''+accessKey+'\' found in label \''+textNode.nodeValue+'\'.')
   }
 
   /*
