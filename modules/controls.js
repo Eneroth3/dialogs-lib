@@ -33,6 +33,7 @@ function dlgInitControls( options ) {
       case 'INPUT':
       case 'TEXTAREA':
         control.focus();
+        if (control.getAttribute('type') == 'checkbox') control.click();
         break;
       default:
         // When element is triggered using shortcut/access key it should remain
