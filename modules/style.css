@@ -2,6 +2,12 @@
   font-family: "Open Sans";
   src: url(OpenSans-Regular.ttf);
 }
+a:link {
+  color: #005595; /*Trimble blue*/
+}
+a:active, a:visited {
+  color: #C81719;
+}
 body {
   font-family: "Open Sans", Helvetica, Arial, sans-serif;
   font-size: 14px;
