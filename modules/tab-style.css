@@ -1,0 +1,36 @@
+.dlg-tabs {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+}
+.dlg-tabs > li {
+  list-style: none;
+  display: inline-block;
+  position: relative;
+  width: 120px;
+  height: 50px;
+  line-height: 50px;
+  cursor: pointer;
+  text-align: center;
+}
+.dlg-tabs > li::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  margin-bottom: -1px; /* Cover parent's bottom border */
+  left: 0;
+  right: 0;
+  height: 0;
+  background: #EC595A;
+  transition: height 200ms; /* TODO: FIXME: Transition is used when tab is selected on page load. */
+}
+.dlg-tabs > li:hover::after {
+  height: 5px;
+}
+.dlg-tabs > li.dlg-tab-selected::after {
+  height: 5px;
+  background: #E72B2D;
+}
+.dlg-tabs-content > div { display: none; }
+.dlg-tabs-content > .dlg-tab-content-selected { display: block; }

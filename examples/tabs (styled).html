@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<!-- Note to self: Remember to keep this example and styled example synced. -->
+<!-- Note to self: Remember to keep this and non-styled example synced. -->
 <html>
   <head>
     <meta charset="UTF-8" />
@@ -12,9 +12,9 @@
       $(document).ready(function() {
         dlgInitTabInterface( {
           // Specify tab container.
-          tabElement: $('#tabs')[0],
+          tabElement: $('.dlg-tabs')[0],
           // Specify content container.
-          tabContentElement: $('#tab-content')[0],
+          tabContentElement: $('.dlg-tabs-content')[0],
           // Optionally specify start tab.
           //startIndex: 1,
           // Optionally specify callback function.
@@ -24,30 +24,32 @@
         } );
       } );
     </script>
-    <style>
-      /*
+    <!--
         Either specify style yourself or use tabs-style.css.
 
-        For this example an absolute minimum of styling is defined in this very
-        document. Typically more styling is used, e.g. showing tabs side by
-        side, and have a hover effect to show they are interact-able.
-      */
-
-      .dlg-tab-selected { font-weight: bold; }
-      #tab-content > div { display: none; }
-      #tab-content > .dlg-tab-content-selected { display: block; }
-    </style>
+        This example uses tabs-style.css.
+      -->
+    <link rel="stylesheet" type="text/css" href="../modules/style.css">
+    <link rel="stylesheet" type="text/css" href="../modules/tab-style.css">
   </head>
+  <!--
+    This example shows the tabs integrated in a dialog box layout, but they can
+    also be used separately.
+  -->
   <body>
-    <ul id="tabs">
+    <ul class="dlg-bar dlg-tabs">
       <li>Tab A</li>
       <li>Tab B</li>
       <li>Tab C</li>
     </ul>
-    <div id="tab-content">
+    <div class="dlg-content-area dlg-tabs-content">
       <div>The tab-content element must have the same number of children as the tabs element.</div>
       <div>Each tab corresponds to a child of tabContent.</div>
       <div>Some extra here.</div>
+    </div>
+    <div class="dlg-commit-buttons">
+      <button class="dlg-button-call-to-action" onclick="alert('Clicked Foo');">Foo</button>
+      <button onclick="alert('Clicked Bar');">Bar</button>
     </div>
   </body>
 </html>
