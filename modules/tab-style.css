@@ -23,7 +23,7 @@
   right: 0;
   height: 0;
   background: #EC595A;
-  transition: height 200ms; /* TODO: FIXME: Transition is used when tab is selected on page load. */
+  transition: height 200ms;
 }
 .dlg-tabs > li:hover::after {
   height: 5px;
@@ -31,6 +31,8 @@
 .dlg-tabs > li.dlg-tab-selected::after {
   height: 5px;
   background: #E72B2D;
+  /* Disable initial transition as selected tab is first set. */
+  transition: none;
 }
 .dlg-tabs-content > div { display: none; }
 .dlg-tabs-content > .dlg-tab-content-selected { display: block; }
