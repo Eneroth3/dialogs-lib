@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tabs Example</title>
+    <!-- Load the required javascript files. -->
+    <script src="../modules/jquery-1.12.4.js"></script>
+    <script src="../modules/tabs.js"></script>
+    <script>
+      // Initialize the tabs when the document is ready.
+      $(document).ready(function() {
+        dlgInitTabInterface( {
+          // Specify tab container.
+          tabElement: $('#tabs')[0],
+          // Specify content container.
+          tabContentElement: $('#tab-content')[0],
+          // Optionally specify start tab.
+          //startIndex: 1,
+          // Optionally specify callback function.
+          onSwitch: function(newIndex) {
+            console.log('Switched tab to #'+newIndex+'.');
+          }
+        } );
+      } );
+    </script>
+    <style>
+      /*
+        Either specify style yourself or use [TODO: add to Style module].
+
+        For this example an absolute minimum of styling is defined in this very
+        document. Typically more styling is used, e.g. showing tabs side by
+        side, and have a hover effect to show they are interact-able.
+      */
+
+      .dlg-tab-selected { font-weight: bold; }
+      #tab-content > div { display: none; }
+      #tab-content > .dlg-tab-content-selected { display: block; }
+    </style>
+  </head>
+  <body>
+    <ul id="tabs">
+      <li>Tab A</li>
+      <li>Tab B</li>
+      <li>Tab C</li>
+    </ul>
+    <div id="tab-content">
+      <div>The tab-content element must have the same number of children as the tabs element.</div>
+      <div>Each tab corresponds to a child of tabContent.</div>
+      <div>Some extra here.</div>
+    </div>
+  </body>
+</html>
