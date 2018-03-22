@@ -46,29 +46,19 @@ body {
   background: #005595; /*Trimble blue*/
   color: white;
 }
+input[type=text],
 button,
 .dlg-button {
   display: inline-block;
   box-sizing: border-box;
-  width: 135px;
-  height: 33px;
   margin: 5px;
-  text-align: center;
-  cursor: pointer;
-  color: #333;
-  background: white;
-  border: 1px solid #CCC;
   border-radius: 2px;
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
-
+  border: 1px solid #CCC;
 }
-button:hover,
-.dlg-button:hover {
-  background: #E6E6E6;
-  border-color: #ADADAD;
-}
+input[type=text]:focus,
 button:focus,
 .dlg-button:focus {
   box-shadow: 0 0 3px #005595; /*Trimble blue*/
@@ -76,6 +66,20 @@ button:focus,
 }
 button::-moz-focus-inner {
   border-style: none;
+}
+button,
+.dlg-button {
+  width: 135px;
+  height: 33px;
+  text-align: center;
+  cursor: pointer;
+  color: #333;
+  background: white;
+}
+button:hover,
+.dlg-button:hover {
+  background: #E6E6E6;
+  border-color: #ADADAD;
 }
 .dlg-button-call-to-action {
   background: #E72B2D;
@@ -85,4 +89,7 @@ button::-moz-focus-inner {
 .dlg-button-call-to-action:hover {
   background: #C81719;
   border-color: #A81315;
+}
+input[type=text] {
+  background: white;
 }
