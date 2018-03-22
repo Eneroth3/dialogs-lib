@@ -1,12 +1,11 @@
 .dlg-tabs {
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: row;
 }
 .dlg-tabs > li {
   list-style: none;
   display: inline-block;
+  float: left;
   position: relative;
   width: 120px;
   height: 50px;
