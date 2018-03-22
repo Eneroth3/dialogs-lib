@@ -1,6 +1,6 @@
 .dlg-tabs {
   margin: 0;
-  padding: 0;
+  padding: 0 15px;
 }
 .dlg-tabs > li {
   list-style: none;
