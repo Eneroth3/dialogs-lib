@@ -51,6 +51,7 @@ button,
 .dlg-button {
   display: inline-block;
   box-sizing: border-box;
+  height: 33px;
   margin: 5px;
   border-radius: 2px;
   font-family: inherit;
@@ -70,7 +71,6 @@ button::-moz-focus-inner {
 button,
 .dlg-button {
   width: 135px;
-  height: 33px;
   text-align: center;
   cursor: pointer;
   color: #333;
@@ -92,4 +92,5 @@ button:hover,
 }
 input[type=text] {
   background: white;
+  padding: 0.5em;
 }
