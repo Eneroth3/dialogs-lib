@@ -45,6 +45,13 @@
         Text inputs are styled too.
       </p>
       <input type="text" value="some text" />
+      <p>
+        Disabled elements are styled to communicate their state.
+      </p>
+      <button disabled class="dlg-button-call-to-action" autofocus onclick="alert('Clicked Foo');">Foo</button>
+      <button disabled onclick="alert('Clicked Bar');">Bar</button>
+      <input disabled type="text" value="some text" />
+      <p>
         For <strong>layout</strong>, wrap the commit buttons in an element with
         the class <code>dlg-commit-buttons</code> and the rest of the dialog in an
         element with the class <code>dlg-content-area</code>.
