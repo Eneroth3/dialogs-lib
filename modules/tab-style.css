@@ -1,5 +1,6 @@
 .dlg-tabs {
   margin: 0;
+  margin-top: 1px;
   padding: 0 15px;
 }
 .dlg-tabs > li {
@@ -8,7 +9,7 @@
   float: left;
   position: relative;
   width: 120px;
-  line-height: 40px;
+  line-height: 39px;
   cursor: pointer;
   text-align: center;
 }
