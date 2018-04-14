@@ -59,6 +59,8 @@ button,
   font-size: inherit;
   line-height: inherit;
   border: 1px solid #CCC;
+  white-space: nowrap;
+  padding: 0;
 }
 input[type=text]:focus,
 button:focus,
