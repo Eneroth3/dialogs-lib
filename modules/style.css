@@ -65,7 +65,7 @@ button,
 input[type=text]:focus,
 button:focus,
 .dlg-button:focus {
-  box-shadow: 0 0 3px #005595; /*Trimble blue*/
+  border-color: #217cbb;
   outline: 0 !important;
 }
 button::-moz-focus-inner {
@@ -85,13 +85,13 @@ button:not([disabled]):hover,
   border-color: #ADADAD;
 }
 .dlg-button-call-to-action:not([disabled]) {
-  background: #E72B2D;
+  background: #0063a3;
   color: white;
-  border-color: #DF191B;
+  border-color: #0063a3;
 }
 .dlg-button-call-to-action:not([disabled]):hover {
-  background: #C81719;
-  border-color: #A81315;
+  background: #217cbb;
+  border-color: #217cbb;
 }
 input[type=text] {
   background: white;
